@@ -39,7 +39,6 @@ public class GifticonDto {
     private Long id;
     private Integer reviewCount;
     private Double average;
-    private Integer count;
     private Map<Integer, Integer> distribution;
   }
 
