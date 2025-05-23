@@ -1,0 +1,64 @@
+version: '3'
+services:
+  gifticon-db:
+    image: postgres:17
+    container_name: gifticon-postgres
+    environment:
+      POSTGRES_USER: gifticon_user
+      POSTGRES_PASSWORD: gifticon1234
+      POSTGRES_DB: gifticon
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+
+  # MongoDB - 쿼리 모델을 위한 NoSQL 데이터베이스
+  mongodb:
+    image: mongo:8.0
+    container_name: gifticon-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+    volumes:
+      - ./mongodb_data:/data/db
+
+  # Elasticsearch - 검색 최적화된 쿼리 모델용
+  elasticsearch:
+    image: elasticsearch:8.17.5
+    container_name: gifticon-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./elasticsearch_data:/usr/share/elasticsearch/data
+    command: >
+      bash -c '
+        bin/elasticsearch-plugin install analysis-nori || true;
+        /usr/local/bin/docker-entrypoint.sh elasticsearch
+      '
+
+  # Kibana - Elasticsearch 관리 및 모니터링용
+  kibana:
+    image: kibana:8.17.5
+    container_name: gifticon-kibana
+    depends_on:
+      - elasticsearch
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+
+  # Valkey (Redis 호환) - 캐싱 및 임시 데이터 저장용
+  valkey:
+    image: valkey/valkey:7.2.9
+    container_name: gifticon-valkey
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./valkey_data:/data
