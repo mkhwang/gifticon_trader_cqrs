@@ -1,5 +1,6 @@
 package com.mkhwang.gifticon.service.entity;
 
+import com.mkhwang.gifticon.config.audit.BaseCreateAudit;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SearchKeyword {
+public class SearchKeyword extends BaseCreateAudit {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -20,11 +21,4 @@ public class SearchKeyword {
   @Column(nullable = false)
   private String keyword;
 
-  @Column(name = "created_at", nullable = false)
-  private LocalDateTime createdAt;
-
-  @PrePersist
-  protected void onCreate() {
-    createdAt = LocalDateTime.now();
-  }
 }

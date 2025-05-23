@@ -1,5 +1,6 @@
 package com.mkhwang.gifticon.service.entity;
 
+import com.mkhwang.gifticon.config.audit.BaseCreateUpdateAudit;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Gifticon {
+public class Gifticon extends BaseCreateUpdateAudit {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -24,12 +25,6 @@ public class Gifticon {
 
   @Column(columnDefinition = "TEXT")
   private String description;
-
-  @Column(name = "created_at", nullable = false)
-  private LocalDateTime createdAt;
-
-  @Column(name = "updated_at")
-  private LocalDateTime updatedAt;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "seller_id", nullable = false, foreignKey = @ForeignKey(name = "fk_gifticon_seller"))
@@ -45,7 +40,7 @@ public class Gifticon {
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private ProductStatus status;
+  private GifticonStatus status;
 
   @OneToOne(mappedBy = "gifticon", cascade = CascadeType.ALL, orphanRemoval = true)
   private GifticonPrice price;
@@ -72,14 +67,4 @@ public class Gifticon {
   @Builder.Default
   private List<Review> reviews = new ArrayList<>();
 
-  @PrePersist
-  protected void onCreate() {
-    createdAt = LocalDateTime.now();
-    updatedAt = LocalDateTime.now();
-  }
-
-  @PreUpdate
-  protected void onUpdate() {
-    updatedAt = LocalDateTime.now();
-  }
 }

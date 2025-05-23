@@ -1,5 +1,5 @@
 package com.mkhwang.gifticon.service.entity;
 
-public enum ProductStatus {
+public enum GifticonStatus {
     ON_SALE, SOLD_OUT, DELETED
 }

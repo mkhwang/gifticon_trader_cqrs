@@ -35,5 +35,5 @@ public class Brand {
 
     @OneToMany(mappedBy = "brand", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Builder.Default
-    private List<Gifticon> products = new ArrayList<>();
+    private List<Gifticon> gifticons = new ArrayList<>();
 }

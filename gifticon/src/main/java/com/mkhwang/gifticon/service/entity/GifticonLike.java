@@ -1,5 +1,6 @@
 package com.mkhwang.gifticon.service.entity;
 
+import com.mkhwang.gifticon.config.audit.BaseCreateAudit;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -12,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class GifticonLike {
+public class GifticonLike extends BaseCreateAudit {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,11 +27,4 @@ public class GifticonLike {
   @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "fk_gifticon_like_user"))
   private User user;
 
-  @Column(name = "created_at", nullable = false)
-  private LocalDateTime createdAt;
-
-  @PrePersist
-  protected void onCreate() {
-    createdAt = LocalDateTime.now();
-  }
 }
