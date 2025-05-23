@@ -57,7 +57,6 @@ public class Gifticon extends BaseCreateUpdateAudit {
   @Builder.Default
   private List<GifticonImage> images = new ArrayList<>();
 
-  // Tag도 ManyToMany 관계로 직접 참조
   @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
   @JoinTable(
           name = "gifticon_tags",

@@ -82,7 +82,7 @@ public class CategoryServiceImpl implements CategoryService {
     if (total == 0) {
       return CategoryDto.CategoryGifticon.builder()
               .category(category)
-              .items(new ArrayList<>())
+              .items(List.of())
               .pagination(PaginationDto.PaginationInfo.empty(pageable))
               .build();
     }
