@@ -35,6 +35,13 @@ spring:
     redis:
       host: localhost
       port: 6379
+  flyway:
+    enabled: true
+    locations: classpath:migrations/
+    schemas: public
+    baseline-on-migrate: true
+    baseline-version: 1
+
 
 logging:
   level:
