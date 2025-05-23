@@ -4,8 +4,6 @@ import com.mkhwang.gifticon.config.audit.BaseCreateUpdateAudit;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Entity
 @Table(name = "reviews")
 @Getter
