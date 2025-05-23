@@ -74,4 +74,18 @@ public class ReviewDto {
         private ReviewSummary summary;
         private PaginationDto.PaginationInfo pagination;
     }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class FlatRatingStatDto {
+        private Double average;
+        private Integer count;
+        private Integer rating1;
+        private Integer rating2;
+        private Integer rating3;
+        private Integer rating4;
+        private Integer rating5;
+    }
 }
