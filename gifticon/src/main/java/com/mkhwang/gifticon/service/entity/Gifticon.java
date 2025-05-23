@@ -45,19 +45,14 @@ public class Gifticon {
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private ProductStatus status = ProductStatus.ON_SALE;
+  private ProductStatus status;
 
   @OneToOne(mappedBy = "gifticon", cascade = CascadeType.ALL, orphanRemoval = true)
   private GifticonPrice price;
 
-  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  @JoinTable(
-          name = "gifticon_categories",
-          joinColumns = @JoinColumn(name = "gifticon_id", foreignKey = @ForeignKey(name = "fk_gifticon_category")),
-          inverseJoinColumns = @JoinColumn(name = "category_id", foreignKey = @ForeignKey(name = "fk_category_gifticon"))
-  )
-  @Builder.Default
-  private List<Category> categories = new ArrayList<>();
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "category_id", nullable = false, foreignKey = @ForeignKey(name = "fk_gifticon_category"))
+  private Category category;
 
   @OneToMany(mappedBy = "gifticon", cascade = CascadeType.ALL, orphanRemoval = true)
   @Builder.Default

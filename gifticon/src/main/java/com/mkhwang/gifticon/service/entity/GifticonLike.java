@@ -23,7 +23,7 @@ public class GifticonLike {
   private Gifticon gifticon;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id", nullable = false)
+  @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "fk_gifticon_like_user"))
   private User user;
 
   @Column(name = "created_at", nullable = false)
