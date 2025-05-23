@@ -152,3 +152,10 @@ alter table if exists reviews
     add constraint fk_user_review
         foreign key (user_id)
             references users;
+alter table users
+    add constraint users_pk
+        unique (nickname);
+alter table users
+    add constraint users_pk_2
+        unique (username);
+
