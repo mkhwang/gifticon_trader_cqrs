@@ -22,8 +22,12 @@ public class Review extends BaseCreateUpdateAudit {
   private Gifticon gifticon;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "fk_user_review"))
+  @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "fk_user_review_user_id"))
   private User user;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "fk_user_review"))
+  private User reviewer;
 
   @Column(nullable = false)
   private Integer rating;
