@@ -4,7 +4,7 @@ import com.mkhwang.gifticon.config.audit.BaseCreateUpdateAudit;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +19,16 @@ public class Gifticon extends BaseCreateUpdateAudit {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-
+  @Column(nullable = false)
   private String name;
+
   private String slug;
 
   @Column(columnDefinition = "TEXT")
   private String description;
+
+  @Column(nullable = false)
+  private LocalDate dueDate;
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "seller_id", nullable = false, foreignKey = @ForeignKey(name = "fk_gifticon_seller"))
