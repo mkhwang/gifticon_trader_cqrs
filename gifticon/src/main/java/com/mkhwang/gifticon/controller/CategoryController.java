@@ -35,7 +35,7 @@ public class CategoryController {
           @RequestParam(defaultValue = "created_at:desc") String sort,
           @RequestParam(defaultValue = "true") Boolean includeSubcategories) {
 
-    var paginationRequest = PaginationDto.PaginationRequest.builder()
+    PaginationDto.PaginationRequest paginationRequest = PaginationDto.PaginationRequest.builder()
             .page(page)
             .size(perPage)
             .sort(sort)
