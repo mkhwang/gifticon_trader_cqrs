@@ -6,7 +6,7 @@ import lombok.Getter;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @MappedSuperclass
@@ -14,5 +14,5 @@ import java.time.Instant;
 public abstract class BaseCreateUpdateAudit extends BaseCreateAudit {
 
   @LastModifiedDate
-  private Instant updatedAt;
+  private LocalDateTime updatedAt;
 }

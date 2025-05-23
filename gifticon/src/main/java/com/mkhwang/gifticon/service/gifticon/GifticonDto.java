@@ -1,9 +1,7 @@
 package com.mkhwang.gifticon.service.gifticon;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.querydsl.core.annotations.QueryProjection;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -47,21 +45,31 @@ public class GifticonDto {
 
   @Data
   @NoArgsConstructor
-  @AllArgsConstructor
   @Builder
   public static class Seller {
     private Long id;
     private String nickname;
+
+    @QueryProjection
+    public Seller(Long id, String nickname) {
+      this.id = id;
+      this.nickname = nickname;
+    }
   }
 
 
   @Data
   @NoArgsConstructor
-  @AllArgsConstructor
   @Builder
   public static class Brand {
     private Long id;
     private String name;
+
+    @QueryProjection
+    public Brand(Long id, String name) {
+      this.id = id;
+      this.name = name;
+    }
   }
 
   @Data
@@ -98,7 +106,6 @@ public class GifticonDto {
 
   @Data
   @NoArgsConstructor
-  @AllArgsConstructor
   @Builder
   public static class Image {
     private Long id;
@@ -106,7 +113,15 @@ public class GifticonDto {
     private String altText;
     private boolean isPrimary;
     private Integer displayOrder;
-    private Long optionId;
+
+    @QueryProjection
+    public Image(Long id, String url, String altText, boolean isPrimary, Integer displayOrder) {
+      this.id = id;
+      this.url = url;
+      this.altText = altText;
+      this.isPrimary = isPrimary;
+      this.displayOrder = displayOrder;
+    }
   }
 
   @Data
@@ -120,8 +135,8 @@ public class GifticonDto {
   }
 
   @Data
+  @Getter
   @NoArgsConstructor
-  @AllArgsConstructor
   @Builder
   public static class GifticonSummary {
     private Long id;
@@ -135,5 +150,22 @@ public class GifticonDto {
     private Seller seller;
     private String status;
     private LocalDateTime createdAt;
+
+    @QueryProjection
+    public GifticonSummary(Long id, String name, String description, BigDecimal basePrice,
+                           BigDecimal salePrice, String currency, Image primaryImage, Brand brand, Seller seller,
+                           String status, LocalDateTime createdAt) {
+      this.id = id;
+      this.name = name;
+      this.description = description;
+      this.basePrice = basePrice;
+      this.salePrice = salePrice;
+      this.currency = currency;
+      this.primaryImage = primaryImage;
+      this.brand = brand;
+      this.seller = seller;
+      this.status = status;
+      this.createdAt = createdAt;
+    }
   }
 }

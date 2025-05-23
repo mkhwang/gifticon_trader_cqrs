@@ -45,5 +45,14 @@ public class PaginationDto {
         private Integer totalPages;
         private Integer currentPage;
         private Integer perPage;
+
+        public static PaginationInfo empty(Pageable pageable) {
+            return PaginationInfo.builder()
+                .totalItems(0)
+                .totalPages(0)
+                .currentPage(pageable.getPageNumber() + 1) // 0-based to 1-based
+                .perPage(pageable.getPageSize())
+                .build();
+        }
     }
 }

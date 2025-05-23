@@ -28,6 +28,8 @@ public class CategoryDto {
 
     @Data
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Detail {
         private Long id;
         private String name;
@@ -35,7 +37,6 @@ public class CategoryDto {
         private String description;
         private Integer level;
         private String imageUrl;
-        private ParentCategory parent;
     }
 
     @Data

@@ -32,7 +32,7 @@ public class CategoryController {
           @PathVariable Long id,
           @RequestParam(defaultValue = "1") int page,
           @RequestParam(defaultValue = "10") int perPage,
-          @RequestParam(defaultValue = "created_at:desc") String sort,
+          @RequestParam(defaultValue = "createdAt:desc") String sort,
           @RequestParam(defaultValue = "true") Boolean includeSubcategories) {
 
     PaginationDto.PaginationRequest paginationRequest = PaginationDto.PaginationRequest.builder()
