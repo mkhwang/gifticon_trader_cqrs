@@ -50,7 +50,7 @@ public class GifticonJapQueryService implements GifticonQueryHandler {
     );
 
     return GifticonDto.Gifticon.builder()
-            .id(query.getGifticonId())
+            .id(gifticon.getId())
             .name(gifticon.getName())
             .slug(gifticon.getSlug())
             .description(gifticon.getDescription())
