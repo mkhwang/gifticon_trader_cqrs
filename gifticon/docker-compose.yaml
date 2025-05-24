@@ -54,11 +54,10 @@ services:
     environment:
       - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
 
-  # Valkey (Redis 호환) - 캐싱 및 임시 데이터 저장용
-  valkey:
-    image: valkey/valkey:7.2.9
-    container_name: gifticon-valkey
+  redis:
+    image: redis:7.4.2
+    container_name: gifticon-redis
     ports:
       - "6379:6379"
     volumes:
-      - ./valkey_data:/data
+      - ./redis_data:/data

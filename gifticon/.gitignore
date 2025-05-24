@@ -40,4 +40,3 @@ out/
 db_data
 mongodb_data
 elasticsearch_data
-valkey_data

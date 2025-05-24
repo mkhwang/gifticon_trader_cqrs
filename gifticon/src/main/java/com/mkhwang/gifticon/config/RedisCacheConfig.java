@@ -18,7 +18,7 @@ import java.util.Map;
 
 @Configuration
 @EnableCaching
-public class ValkeyCacheConfig {
+public class RedisCacheConfig {
 
   @Value("${spring.data.redis.host}")
   private String host;
