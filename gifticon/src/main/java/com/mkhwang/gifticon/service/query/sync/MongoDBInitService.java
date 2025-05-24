@@ -28,7 +28,7 @@ public class MongoDBInitService {
                 CollectionOptions options = CollectionOptions.empty().collation(collation);
 
                 mongoTemplate.createCollection(GifticonDocument.class, options);
-                log.info("Created products collection");
+                log.info("Created gifticon collection");
             }
 
             log.info("MongoDB collections initialized successfully");
