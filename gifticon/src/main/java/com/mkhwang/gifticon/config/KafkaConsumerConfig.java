@@ -20,7 +20,7 @@ public class KafkaConsumerConfig {
     @Value("${spring.kafka.bootstrap-servers:kafka:9092}")
     private String bootstrapServers;
 
-    @Value("${spring.kafka.consumer.group-id:product-query-group}")
+    @Value("${spring.kafka.consumer.group-id:gifticon-query-group}")
     private String groupId;
 
     @Bean

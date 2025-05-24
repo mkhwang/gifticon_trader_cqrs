@@ -1,10 +1,8 @@
 package com.mkhwang.gifticon.service.query;
 
-import com.mkhwang.gifticon.config.GenericMapper;
 import com.mkhwang.gifticon.config.QuerydslUtil;
 import com.mkhwang.gifticon.controller.dto.GifticonListResponse;
 import com.mkhwang.gifticon.exception.ResourceNotFoundException;
-import com.mkhwang.gifticon.repository.CategoryRepository;
 import com.mkhwang.gifticon.repository.GifticonRepository;
 import com.mkhwang.gifticon.service.dto.PaginationDto;
 import com.mkhwang.gifticon.service.dto.ReviewDto;
