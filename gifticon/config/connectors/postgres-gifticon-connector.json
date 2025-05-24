@@ -1,0 +1,37 @@
+{
+  "name": "gifticon-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "database.hostname": "gifticon-db",
+    "database.port": "5432",
+    "database.user": "gifticon_user",
+    "database.password": "gifticon1234",
+    "database.dbname": "gifticon",
+    "topic.prefix": "gifticon",
+    "slot.name": "gifticon_slot",
+    "plugin.name": "pgoutput",
+    "snapshot.mode": "initial",
+    "table.include.list": "public.gifticons,public.gifticon_prices,public.gifticon_tags,public.reviews",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "false",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+
+    "message.key.columns": "public.gifticons:id;public.gifticon_prices:gifticon_id;public.gifticon_tags:gifticon_id;public.reviews:gifticon_id",
+
+    "transforms": "RenamegifticonKey,RouteByTable",
+
+    "transforms.RenamegifticonKey.type": "org.apache.kafka.connect.transforms.ReplaceField$Key",
+    "transforms.RenamegifticonKey.renames": "id:gifticon_id",
+    "transforms.RenamegifticonKey.predicate": "isgifticons",
+
+    "transforms.RouteByTable.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.RouteByTable.regex": "gifticon.public.(.*)",
+    "transforms.RouteByTable.replacement": "gifticon-events",
+
+    "predicates": "isgifticons",
+    "predicates.isgifticons.type": "org.apache.kafka.connect.transforms.predicates.TopicNameMatches",
+    "predicates.isgifticons.pattern": ".*gifticons$"
+  }
+}
