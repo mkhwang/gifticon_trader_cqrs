@@ -1,8 +1,10 @@
 package com.mkhwang.gifticon.controller.mapper;
 
+import com.mkhwang.gifticon.controller.dto.GifticonCreateRequest;
 import com.mkhwang.gifticon.controller.dto.GifticonListRequest;
 import com.mkhwang.gifticon.service.dto.PaginationDto;
 import com.mkhwang.gifticon.service.entity.Gifticon;
+import com.mkhwang.gifticon.service.gifticon.GifticonCommand;
 import com.mkhwang.gifticon.service.gifticon.GifticonDto;
 import com.mkhwang.gifticon.service.query.GifticonQuery;
 import org.springframework.stereotype.Component;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class GifticonMapper {
 
-  public GifticonQuery.ListGifticons toProductDtoListRequest(GifticonListRequest request) {
+  public GifticonQuery.ListGifticons toGifticonDtoListRequest(GifticonListRequest request) {
     return GifticonQuery.ListGifticons.builder()
             .status(request.getStatus())
             .minPrice(request.getMinPrice())
@@ -81,5 +83,21 @@ public class GifticonMapper {
                             .toList()).build();
 
 
+  }
+
+  public GifticonCommand.CreateGifticon toCreateCommand(GifticonCreateRequest request) {
+    return GifticonCommand.CreateGifticon.builder()
+            .brandId(request.getBrandId())
+            .categoryId(request.getCategoryId())
+            .description(request.getDescription())
+            .name(request.getName())
+            .slug(request.getSlug())
+            .sellerId(request.getSellerId())
+            .price(GifticonDto.Price.builder()
+                    .basePrice(request.getPrice().getBasePrice())
+                    .salePrice(request.getPrice().getSalePrice())
+                    .currency(request.getPrice().getCurrency())
+                    .build())
+            .build();
   }
 }

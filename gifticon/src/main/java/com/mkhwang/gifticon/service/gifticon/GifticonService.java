@@ -24,7 +24,7 @@ public class GifticonService implements GifticonCommandHandler {
 
   @Override
   @Transactional
-  public GifticonDto.Gifticon createProduct(GifticonCommand.CreateGifticon command) {
+  public GifticonDto.Gifticon createGifticon(GifticonCommand.CreateGifticon command) {
     Gifticon gifticon = Gifticon.builder()
             .name(command.getName())
             .slug(command.getSlug())
@@ -89,6 +89,41 @@ public class GifticonService implements GifticonCommandHandler {
     // 최종 저장 및 응답 생성
     gifticon = gifticonRepository.save(gifticon);
     return gifticonMapper.toDto(gifticon);
+  }
+
+  @Override
+  @Transactional
+  public GifticonDto.Gifticon tradeGifticon(GifticonCommand.TradeGifticon command) {
+    Gifticon gifticon = gifticonRepository.findById(command.getGifticonId()).orElseThrow(
+            () -> new ResourceNotFoundException("Gifticon", command.getGifticonId()));
+    User user = userRepository.findById(command.getUserId()).orElseThrow(
+            () -> new ResourceNotFoundException("User", command.getUserId()));
+
+    if (gifticon.getSeller().getId().equals(command.getUserId())) {
+      throw new IllegalArgumentException("You cannot trade your own gifticon.");
+    }
+    if (gifticon.getStatus() != GifticonStatus.ON_SALE) {
+      throw new IllegalArgumentException("Gifticon is not available for trade.");
+    }
+
+    gifticon.setBuyer(user);
+    gifticon.setStatus(GifticonStatus.SOLD_OUT);
+    gifticon = gifticonRepository.save(gifticon);
+    return gifticonMapper.toDto(gifticon);
+  }
+
+  @Override
+  @Transactional
+  public void deleteGifticon(GifticonCommand.DeleteGifticon command) {
+    Gifticon gifticon = gifticonRepository.findById(command.getGifticonId()).orElseThrow(
+            () -> new ResourceNotFoundException("Gifticon", command.getGifticonId()));
+
+    if (gifticon.getStatus() != GifticonStatus.ON_SALE) {
+      throw new IllegalArgumentException("Gifticon cannot be deleted.");
+    }
+
+    gifticon.setStatus(GifticonStatus.DELETED);
+    gifticonRepository.save(gifticon);
   }
 
 

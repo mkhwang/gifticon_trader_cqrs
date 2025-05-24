@@ -24,4 +24,17 @@ public class GifticonCommand {
     @Builder.Default
     private List<Long> tagIds = new ArrayList<>();
   }
+
+  @Data
+  @Builder
+  public static class DeleteGifticon {
+    private Long gifticonId;
+  }
+
+  @Data
+  @Builder
+  public static class TradeGifticon {
+    private Long gifticonId;
+    private Long userId;
+  }
 }
