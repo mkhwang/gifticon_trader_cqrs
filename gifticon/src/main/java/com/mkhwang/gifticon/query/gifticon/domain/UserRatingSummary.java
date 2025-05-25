@@ -11,9 +11,8 @@ import java.util.Map;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class SellerRatingSummary {
-
-  private Long userId;
+public class UserRatingSummary {
+  private Long id;
   private Double averageRating;
   private Integer totalCount;
   private Map<Integer, Integer> distribution;

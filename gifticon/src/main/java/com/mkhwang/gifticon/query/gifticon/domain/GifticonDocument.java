@@ -22,8 +22,7 @@ public class GifticonDocument {
   private Long id;
   private String name;
   private String slug;
-  private String shortDescription;
-  private String fullDescription;
+  private String description;
   private String status;
   private LocalDateTime createdAt;
   private LocalDateTime updatedAt;

@@ -1,11 +1,11 @@
-package com.mkhwang.gifticon.command.gifticon.presentation.mapper;
+package com.mkhwang.gifticon.command.gifticon.application.mapper;
 
 import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
 import com.mkhwang.gifticon.command.gifticon.domain.Gifticon;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GifticonResponseMapper {
+public class GifticonCommandResponseMapper {
 
   public GifticonDto.Gifticon toDto(Gifticon gifticon) {
     return GifticonDto.Gifticon.builder()

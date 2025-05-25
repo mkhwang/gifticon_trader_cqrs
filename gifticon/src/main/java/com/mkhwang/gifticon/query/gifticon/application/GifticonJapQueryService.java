@@ -13,7 +13,7 @@ import com.mkhwang.gifticon.common.dto.PaginationDto;
 import com.mkhwang.gifticon.common.exception.ResourceNotFoundException;
 import com.mkhwang.gifticon.query.brand.domain.QBrand;
 import com.mkhwang.gifticon.query.category.domain.QCategory;
-import com.mkhwang.gifticon.query.gifticon.application.mapper.GifticonDtoMapper;
+import com.mkhwang.gifticon.query.gifticon.application.mapper.GifticonQueryResponseMapper;
 import com.mkhwang.gifticon.query.gifticon.presentation.dto.GifticonQuery;
 import com.mkhwang.gifticon.query.review.presentation.dto.ReviewDto;
 import com.mkhwang.gifticon.query.user.domain.QUser;
@@ -23,6 +23,7 @@ import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Primary
 @Component
 @RequiredArgsConstructor
 public class GifticonJapQueryService implements GifticonQueryHandler {
@@ -47,7 +49,7 @@ public class GifticonJapQueryService implements GifticonQueryHandler {
   private final QuerydslUtil querydslUtil;
   private final QUser qUser = QUser.user;
   private final QGifticonImage qGifticonImage = QGifticonImage.gifticonImage;
-  private final GifticonDtoMapper gifticonDtoMapper;
+  private final GifticonQueryResponseMapper gifticonQueryResponseMapper;
 
 
   @Override
@@ -57,7 +59,7 @@ public class GifticonJapQueryService implements GifticonQueryHandler {
             () -> new ResourceNotFoundException("Gifticon", query.getGifticonId())
     );
 
-    return gifticonDtoMapper.toGifticon(gifticon, this.getSellerSummary(gifticon.getSeller().getId()));
+    return gifticonQueryResponseMapper.toGifticon(gifticon, this.getSellerSummary(gifticon.getSeller().getId()));
   }
 
   @Override

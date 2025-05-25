@@ -1,11 +1,17 @@
 package com.mkhwang.gifticon.query.gifticon.application.mapper;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
 import com.mkhwang.gifticon.command.gifticon.domain.Gifticon;
+import com.mkhwang.gifticon.query.gifticon.domain.GifticonDocument;
+import com.mkhwang.gifticon.query.gifticon.domain.UserRatingSummary;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GifticonDtoMapper {
+@RequiredArgsConstructor
+public class GifticonQueryResponseMapper {
+  private final ObjectMapper objectMapper;
 
   public GifticonDto.Gifticon toGifticon(Gifticon gifticon, GifticonDto.SellerSummary summary) {
     return GifticonDto.Gifticon.builder()
@@ -60,4 +66,37 @@ public class GifticonDtoMapper {
             .build();
   }
 
+
+  public GifticonDto.Gifticon toGifticon(GifticonDocument gifticon, UserRatingSummary summary) {
+    return GifticonDto.Gifticon.builder()
+            .id(gifticon.getId())
+            .name(gifticon.getName())
+            .slug(gifticon.getSlug())
+            .description(gifticon.getDescription())
+            .brand(objectMapper.convertValue(gifticon.getBrand(), GifticonDto.Brand.class))
+            .seller(objectMapper.convertValue(gifticon.getSeller(), GifticonDto.Seller.class))
+            .status(gifticon.getStatus().toString())
+            .createdAt(gifticon.getCreatedAt())
+            .updatedAt(gifticon.getUpdatedAt())
+            .price(objectMapper.convertValue(gifticon.getPrice(), GifticonDto.Price.class))
+            .category(objectMapper.convertValue(gifticon.getCategory(), GifticonDto.Category.class))
+            .images(
+                    gifticon.getImages().stream()
+                            .map(gifticonImage ->
+                                    objectMapper.convertValue(gifticonImage, GifticonDto.Image.class)
+                            )
+                            .toList())
+            .tags(
+                    gifticon.getTags().stream()
+                            .map(tag -> objectMapper.convertValue(tag, GifticonDto.Tag.class)
+                            )
+                            .toList()
+            ).sellerSummary(GifticonDto.SellerSummary.builder()
+                    .id(summary.getId())
+                    .average(summary.getAverageRating())
+                    .reviewCount(summary.getTotalCount())
+                    .distribution(summary.getDistribution())
+                    .build())
+            .build();
+  }
 }

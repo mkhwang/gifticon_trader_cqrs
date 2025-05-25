@@ -34,4 +34,5 @@ public class GiftionQueryMapper {
             .gifticonId(gifticonId)
             .build();
   }
+
 }

@@ -10,7 +10,7 @@ import com.mkhwang.gifticon.command.gifticon.domain.GifticonPrice;
 import com.mkhwang.gifticon.command.gifticon.domain.GifticonStatus;
 import com.mkhwang.gifticon.command.gifticon.infra.GifticonRepository;
 import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
-import com.mkhwang.gifticon.command.gifticon.presentation.mapper.GifticonResponseMapper;
+import com.mkhwang.gifticon.command.gifticon.application.mapper.GifticonCommandResponseMapper;
 import com.mkhwang.gifticon.command.tag.domain.Tag;
 import com.mkhwang.gifticon.command.tag.infra.TagRepository;
 import com.mkhwang.gifticon.common.exception.ResourceNotFoundException;
@@ -34,7 +34,7 @@ public class GifticonCommandService implements CreateGifticonUseCase, DeleteGift
   private final UserRepository userRepository;
   private final BrandRepository brandRepository;
   private final CategoryRepository categoryRepository;
-  private final GifticonResponseMapper gifticonResponseMapper;
+  private final GifticonCommandResponseMapper gifticonCommandResponseMapper;
   private final TagRepository tagRepository;
 
   @Override
@@ -103,7 +103,7 @@ public class GifticonCommandService implements CreateGifticonUseCase, DeleteGift
 
     // 최종 저장 및 응답 생성
     gifticon = gifticonRepository.save(gifticon);
-    return gifticonResponseMapper.toDto(gifticon);
+    return gifticonCommandResponseMapper.toDto(gifticon);
   }
 
   @Override
@@ -124,7 +124,7 @@ public class GifticonCommandService implements CreateGifticonUseCase, DeleteGift
     gifticon.setBuyer(user);
     gifticon.setStatus(GifticonStatus.SOLD_OUT);
     gifticon = gifticonRepository.save(gifticon);
-    return gifticonResponseMapper.toDto(gifticon);
+    return gifticonCommandResponseMapper.toDto(gifticon);
   }
 
   @Override

@@ -3,6 +3,7 @@ package com.mkhwang.gifticon.query.gifticon.application;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mkhwang.gifticon.command.gifticon.infra.GifticonRepository;
 import com.mkhwang.gifticon.command.gifticon.domain.Gifticon;
+import com.mkhwang.gifticon.query.gifticon.application.mapper.GifticonDocumentMapper;
 import com.mkhwang.gifticon.query.gifticon.domain.GifticonDocument;
 import com.mkhwang.gifticon.query.gifticon.infra.GifticonDocumentRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ import java.util.List;
 public class GifticonDocumentServiceImpl implements GifticonDocumentService {
   private final GifticonRepository gifticonRepository;
   private final GifticonDocumentRepository gifticonDocumentRepository;
-  private final ObjectMapper objectMapper;
+  private final GifticonDocumentMapper gifticonDocumentMapper;
 
 
   @Override
@@ -36,18 +37,11 @@ public class GifticonDocumentServiceImpl implements GifticonDocumentService {
     do {
       gifticons = gifticonRepository.findAll(PageRequest.of(page, size));
       List<GifticonDocument> documents = gifticons.getContent().stream()
-              .map(this::convertToDocument)
+              .map(gifticonDocumentMapper::toDocument)
               .toList();
 
       gifticonDocumentRepository.saveAll(documents); // Bulk 저장
       page++;
     } while (!gifticons.isLast());
-  }
-
-  private GifticonDocument convertToDocument(Gifticon gifticon) {
-    return GifticonDocument.builder()
-            .id(gifticon.getId())
-            .name(gifticon.getName())
-            .build();
   }
 }

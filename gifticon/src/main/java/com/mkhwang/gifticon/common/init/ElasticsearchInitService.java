@@ -18,7 +18,6 @@ import java.util.List;
 public class ElasticsearchInitService {
 
     private final ElasticsearchOperations elasticsearchOperations;
-    private final List<GifticonDocumentService> gifticonDocumentServices;
 
     @EventListener(ApplicationReadyEvent.class)
     public void initIndices() {

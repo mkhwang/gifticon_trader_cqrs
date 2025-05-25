@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.client.elc.ElasticsearchConfigurat
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 @Configuration
-@EnableElasticsearchRepositories(basePackages = "com.mkhwang.gifticon.service.query.repository")
+@EnableElasticsearchRepositories(basePackages = "com.mkhwang.gifticon.query.gifticon.infra")
 public class ElasticsearchConfig extends ElasticsearchConfiguration {
 
     @Value("${spring.elasticsearch.host:elasticsearch}")
