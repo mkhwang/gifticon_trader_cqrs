@@ -41,4 +41,4 @@ db_data
 mongodb_data
 elasticsearch_data
 kafka_data
-redis_data
+redis_data/dump.rdb
