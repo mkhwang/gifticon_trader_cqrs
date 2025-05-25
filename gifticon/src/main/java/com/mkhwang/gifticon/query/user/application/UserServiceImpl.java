@@ -4,6 +4,7 @@ import com.mkhwang.gifticon.command.review.domain.QReview;
 import com.mkhwang.gifticon.common.config.GenericMapper;
 import com.mkhwang.gifticon.common.exception.ResourceNotFoundException;
 import com.mkhwang.gifticon.command.review.infra.ReviewRepository;
+import com.mkhwang.gifticon.query.review.infra.ReviewQueryRepository;
 import com.mkhwang.gifticon.query.user.infra.UserRepository;
 import com.mkhwang.gifticon.common.dto.PaginationDto;
 import com.mkhwang.gifticon.query.review.presentation.dto.ReviewDto;
@@ -27,8 +28,7 @@ public class UserServiceImpl implements UserService {
   private final GenericMapper genericMapper;
   private final UserRepository userRepository;
   private final ReviewRepository reviewRepository;
-  private final JPAQueryFactory jpaQueryFactory;
-  private final QReview qReview = QReview.review;
+  private final ReviewQueryRepository reviewQueryRepository;
 
   @Override
   @Transactional(readOnly = true)
@@ -59,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
     return ReviewDto.ReviewPage.builder()
             .items(genericMapper.toDtoList(item.toList(), ReviewDto.Review.class))
-            .summary(this.getUserReviewSummary(id))
+            .summary(reviewQueryRepository.getUserReviewSummary(id))
             .pagination(
                     PaginationDto.PaginationInfo.builder()
                             .totalItems((int) item.getTotalElements())
@@ -69,38 +69,5 @@ public class UserServiceImpl implements UserService {
                             .build()
             )
             .build();
-  }
-
-  private ReviewDto.ReviewSummary getUserReviewSummary(Long id) {
-    ReviewDto.FlatRatingStatDto flatRating = jpaQueryFactory
-            .select(
-                    Projections.constructor(ReviewDto.FlatRatingStatDto.class,
-                            qReview.rating.avg(),
-                            qReview.gifticon.count().intValue().as("count"),
-                            Expressions.numberTemplate(Integer.class, "SUM(CASE WHEN {0} = 1 THEN 1 ELSE 0 END)", qReview.rating),
-                            Expressions.numberTemplate(Integer.class, "SUM(CASE WHEN {0} = 2 THEN 1 ELSE 0 END)", qReview.rating),
-                            Expressions.numberTemplate(Integer.class, "SUM(CASE WHEN {0} = 3 THEN 1 ELSE 0 END)", qReview.rating),
-                            Expressions.numberTemplate(Integer.class, "SUM(CASE WHEN {0} = 4 THEN 1 ELSE 0 END)", qReview.rating),
-                            Expressions.numberTemplate(Integer.class, "SUM(CASE WHEN {0} = 5 THEN 1 ELSE 0 END)", qReview.rating)
-                    )
-
-            )
-            .from(qReview)
-            .where(qReview.user.id.eq(id))
-            .groupBy(qReview.user)
-            .fetchOne();
-    if (flatRating == null) {
-      return null;
-    }
-    return ReviewDto.ReviewSummary.builder()
-            .averageRating(flatRating.getAverage())
-            .totalCount(flatRating.getCount())
-            .distribution(Map.of(
-                    1, flatRating.getRating1(),
-                    2, flatRating.getRating2(),
-                    3, flatRating.getRating3(),
-                    4, flatRating.getRating4(),
-                    5, flatRating.getRating5()
-            )).build();
   }
 }

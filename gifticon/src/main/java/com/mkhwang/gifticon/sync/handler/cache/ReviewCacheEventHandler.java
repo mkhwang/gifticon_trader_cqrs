@@ -1,0 +1,64 @@
+package com.mkhwang.gifticon.sync.handler.cache;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mkhwang.gifticon.query.gifticon.domain.UserRatingSummary;
+import com.mkhwang.gifticon.sync.handler.AbstractCdcEventHandler;
+import com.mkhwang.gifticon.sync.handler.dto.CdcEvent;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Component;
+
+import java.util.Map;
+
+@Component
+@Slf4j
+public class ReviewCacheEventHandler extends AbstractCdcEventHandler {
+  private final RedisTemplate<String, UserRatingSummary> userRatingSummaryRedisTemplate;
+
+  public ReviewCacheEventHandler(ObjectMapper objectMapper, RedisTemplate<String, UserRatingSummary> userRatingSummaryRedisTemplate) {
+    super(objectMapper);
+    this.userRatingSummaryRedisTemplate = userRatingSummaryRedisTemplate;
+  }
+
+  @Override
+  protected String getSupportedTable() {
+    return "reviews";
+  }
+
+  @Override
+  public void handle(CdcEvent event) {
+    if (event.isDelete()) {
+      handleDelete(event);
+    } else {
+      handleCreateOrUpdate(event);
+    }
+  }
+
+  private void handleDelete(CdcEvent event) {
+    Map<String, Object> data = event.getBeforeData();
+    if (data == null || !data.containsKey("user_id")) {
+      return;
+    }
+
+    Long user_id = getLongValue(data, "user_id");
+    userRatingSummaryRedisTemplate.delete("user:summary:" + user_id);
+    log.info("Deleted user summary cache: {}", user_id);
+  }
+
+  private void handleCreateOrUpdate(CdcEvent event) {
+    Map<String, Object> data = event.getAfterData();
+    if (data == null || !data.containsKey("user_id")) {
+      return;
+    }
+
+    Long userId = getLongValue(data, "user_id");
+    UserRatingSummary summary = UserRatingSummary.builder()
+            .id(userId)
+            .averageRating(getDoubleValue(data, "average_rating"))
+            .totalCount(getIntegerValue(data, "total_count"))
+            .build();
+
+    userRatingSummaryRedisTemplate.opsForValue().set("user:summary:" + userId, summary);
+    log.info("Updated user summary cache: {}", userId);
+  }
+}

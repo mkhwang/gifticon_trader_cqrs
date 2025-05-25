@@ -5,6 +5,7 @@ import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
 import com.mkhwang.gifticon.command.gifticon.domain.Gifticon;
 import com.mkhwang.gifticon.query.gifticon.domain.GifticonDocument;
 import com.mkhwang.gifticon.query.gifticon.domain.UserRatingSummary;
+import com.mkhwang.gifticon.query.review.presentation.dto.ReviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class GifticonQueryResponseMapper {
   private final ObjectMapper objectMapper;
 
-  public GifticonDto.Gifticon toGifticon(Gifticon gifticon, GifticonDto.SellerSummary summary) {
+  public GifticonDto.Gifticon toGifticon(Gifticon gifticon, ReviewDto.ReviewSummary summary) {
     return GifticonDto.Gifticon.builder()
             .id(gifticon.getId())
             .name(gifticon.getName())
@@ -62,7 +63,13 @@ public class GifticonQueryResponseMapper {
                                     .slug(tag.getSlug())
                                     .build())
                             .toList()
-            ).sellerSummary(summary)
+            ).sellerSummary(
+                    GifticonDto.SellerSummary.builder()
+                            .average(summary.getAverageRating())
+                            .reviewCount(summary.getTotalCount())
+                            .distribution(summary.getDistribution())
+                            .build()
+            )
             .build();
   }
 

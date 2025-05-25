@@ -6,7 +6,6 @@ import com.mkhwang.gifticon.command.gifticon.domain.QGifticonImage;
 import com.mkhwang.gifticon.command.gifticon.domain.QGifticonPrice;
 import com.mkhwang.gifticon.command.gifticon.infra.GifticonRepository;
 import com.mkhwang.gifticon.command.gifticon.presentation.dto.*;
-import com.mkhwang.gifticon.command.review.domain.QReview;
 import com.mkhwang.gifticon.command.tag.domain.QTag;
 import com.mkhwang.gifticon.common.config.QuerydslUtil;
 import com.mkhwang.gifticon.common.dto.PaginationDto;
@@ -15,11 +14,10 @@ import com.mkhwang.gifticon.query.brand.domain.QBrand;
 import com.mkhwang.gifticon.query.category.domain.QCategory;
 import com.mkhwang.gifticon.query.gifticon.application.mapper.GifticonQueryResponseMapper;
 import com.mkhwang.gifticon.query.gifticon.presentation.dto.GifticonQuery;
+import com.mkhwang.gifticon.query.review.infra.ReviewQueryRepository;
 import com.mkhwang.gifticon.query.review.presentation.dto.ReviewDto;
 import com.mkhwang.gifticon.query.user.domain.QUser;
 import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +28,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Primary
@@ -41,7 +38,6 @@ public class GifticonJapQueryService implements GifticonQueryHandler {
   private final GifticonRepository gifticonRepository;
   private final JPAQueryFactory jpaQueryFactory;
   private final QGifticon qGifticon = QGifticon.gifticon;
-  private final QReview qReview = QReview.review;
   private final QBrand qBrand = QBrand.brand;
   private final QCategory qCategory = QCategory.category;
   private final QGifticonPrice qGifticonPrice = QGifticonPrice.gifticonPrice;
@@ -50,6 +46,7 @@ public class GifticonJapQueryService implements GifticonQueryHandler {
   private final QUser qUser = QUser.user;
   private final QGifticonImage qGifticonImage = QGifticonImage.gifticonImage;
   private final GifticonQueryResponseMapper gifticonQueryResponseMapper;
+  private final ReviewQueryRepository reviewQueryRepository;
 
 
   @Override
@@ -59,7 +56,9 @@ public class GifticonJapQueryService implements GifticonQueryHandler {
             () -> new ResourceNotFoundException("Gifticon", query.getGifticonId())
     );
 
-    return gifticonQueryResponseMapper.toGifticon(gifticon, this.getSellerSummary(gifticon.getSeller().getId()));
+    ReviewDto.ReviewSummary summary = reviewQueryRepository.getUserReviewSummary(gifticon.getSeller().getId());
+
+    return gifticonQueryResponseMapper.toGifticon(gifticon, summary);
   }
 
   @Override
@@ -205,40 +204,5 @@ public class GifticonJapQueryService implements GifticonQueryHandler {
 
 
     return condition;
-  }
-
-  private GifticonDto.SellerSummary getSellerSummary(Long userId) {
-    ReviewDto.FlatRatingStatDto flatRating = jpaQueryFactory
-            .select(
-                    Projections.constructor(ReviewDto.FlatRatingStatDto.class,
-                            qReview.rating.avg(),
-                            qReview.gifticon.count().intValue().as("count"),
-                            Expressions.numberTemplate(Integer.class, "SUM(CASE WHEN {0} = 1 THEN 1 ELSE 0 END)", qReview.rating),
-                            Expressions.numberTemplate(Integer.class, "SUM(CASE WHEN {0} = 2 THEN 1 ELSE 0 END)", qReview.rating),
-                            Expressions.numberTemplate(Integer.class, "SUM(CASE WHEN {0} = 3 THEN 1 ELSE 0 END)", qReview.rating),
-                            Expressions.numberTemplate(Integer.class, "SUM(CASE WHEN {0} = 4 THEN 1 ELSE 0 END)", qReview.rating),
-                            Expressions.numberTemplate(Integer.class, "SUM(CASE WHEN {0} = 5 THEN 1 ELSE 0 END)", qReview.rating)
-                    )
-
-            )
-            .from(qReview)
-            .where(qReview.user.id.eq(userId))
-            .groupBy(qReview.user)
-            .fetchOne();
-    if (flatRating == null) {
-      return null;
-    }
-    return GifticonDto.SellerSummary.builder()
-            .id(userId)
-            .average(flatRating.getAverage())
-            .reviewCount(flatRating.getCount())
-            .distribution(Map.of(
-                    1, flatRating.getRating1(),
-                    2, flatRating.getRating2(),
-                    3, flatRating.getRating3(),
-                    4, flatRating.getRating4(),
-                    5, flatRating.getRating5()
-            )).build();
-
   }
 }

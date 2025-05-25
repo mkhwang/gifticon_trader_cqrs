@@ -26,7 +26,7 @@ public class GifticonQueryService implements GifticonQueryHandler {
             .orElseThrow(() -> new IllegalArgumentException("Gifticon not found with id: " + query.getGifticonId()));
 
     UserRatingSummary summary =
-            Optional.ofNullable(userRatingSummaryRedisTemplate.opsForValue().get("user:summary:" + gifticonDocument.getId()))
+            Optional.ofNullable(userRatingSummaryRedisTemplate.opsForValue().get("user:summary:" + gifticonDocument.getSeller().get("id")))
                     .orElse(UserRatingSummary.builder()
                             .id(0L)
                             .averageRating(0.0)
