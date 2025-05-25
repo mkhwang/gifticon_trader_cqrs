@@ -1,8 +1,7 @@
 package com.mkhwang.gifticon.query.gifticon.application;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mkhwang.gifticon.command.gifticon.infra.GifticonRepository;
 import com.mkhwang.gifticon.command.gifticon.domain.Gifticon;
+import com.mkhwang.gifticon.command.gifticon.infra.GifticonRepository;
 import com.mkhwang.gifticon.query.gifticon.application.mapper.GifticonDocumentMapper;
 import com.mkhwang.gifticon.query.gifticon.domain.GifticonDocument;
 import com.mkhwang.gifticon.query.gifticon.infra.GifticonDocumentRepository;

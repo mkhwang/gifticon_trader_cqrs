@@ -3,7 +3,6 @@ package com.mkhwang.gifticon.common.config;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +38,7 @@ public class GenericMapper {
   // Entity 리스트 -> DTO 리스트 변환
   public <E, D> List<D> toDtoList(List<E> entityList, Class<D> dtoClass) {
     return entityList.stream()
-      .map(entity -> modelMapper.map(entity, dtoClass))
-      .collect(Collectors.toList());
+            .map(entity -> modelMapper.map(entity, dtoClass))
+            .collect(Collectors.toList());
   }
 }

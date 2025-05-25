@@ -73,14 +73,14 @@ public class GifticonTagDocumentModelEventHandler extends GifticonDocumentModelB
     // 존재하지 않는 경우에만 추가
     if (!tagExists) {
       tagRepository.findById(tagId).ifPresent(
-          tag -> {
-            Map<String, Object> tagInfo = Map.of(
-                "id", tag.getId(),
-                "name", tag.getName(),
-                "slug", tag.getSlug()
-            );
-            tags.add(tagInfo);
-          }
+              tag -> {
+                Map<String, Object> tagInfo = Map.of(
+                        "id", tag.getId(),
+                        "name", tag.getName(),
+                        "slug", tag.getSlug()
+                );
+                tags.add(tagInfo);
+              }
       );
       gifticonDocumentRepository.save(document);
     }

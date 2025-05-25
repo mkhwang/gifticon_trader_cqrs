@@ -5,7 +5,7 @@ import com.mkhwang.gifticon.sync.handler.dto.CdcEvent;
 
 public interface CdcEventHandler {
 
-    boolean canHandle(CdcEvent event);
+  boolean canHandle(CdcEvent event);
 
-    void handle(CdcEvent event);
+  void handle(CdcEvent event);
 }

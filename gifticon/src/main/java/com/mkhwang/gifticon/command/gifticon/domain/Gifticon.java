@@ -1,11 +1,11 @@
 package com.mkhwang.gifticon.command.gifticon.domain;
 
+import com.mkhwang.gifticon.command.review.domain.Review;
+import com.mkhwang.gifticon.command.tag.domain.Tag;
 import com.mkhwang.gifticon.common.config.audit.BaseCreateUpdateAudit;
 import com.mkhwang.gifticon.query.brand.domain.Brand;
 import com.mkhwang.gifticon.query.category.domain.Category;
 import com.mkhwang.gifticon.query.user.domain.User;
-import com.mkhwang.gifticon.command.review.domain.Review;
-import com.mkhwang.gifticon.command.tag.domain.Tag;
 import jakarta.persistence.*;
 import lombok.*;
 

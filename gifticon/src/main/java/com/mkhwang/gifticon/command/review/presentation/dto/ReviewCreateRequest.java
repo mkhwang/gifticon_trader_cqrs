@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ReviewCreateRequest {
-    private Integer rating;
-    private String title;
-    private String content;
+  private Integer rating;
+  private String title;
+  private String content;
 }

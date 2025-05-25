@@ -1,26 +1,20 @@
 package com.mkhwang.gifticon.query.user.application;
 
-import com.mkhwang.gifticon.command.review.domain.QReview;
-import com.mkhwang.gifticon.common.config.GenericMapper;
-import com.mkhwang.gifticon.common.exception.ResourceNotFoundException;
-import com.mkhwang.gifticon.command.review.infra.ReviewRepository;
-import com.mkhwang.gifticon.query.review.infra.ReviewQueryRepository;
-import com.mkhwang.gifticon.query.user.infra.UserRepository;
-import com.mkhwang.gifticon.common.dto.PaginationDto;
-import com.mkhwang.gifticon.query.review.presentation.dto.ReviewDto;
-import com.mkhwang.gifticon.query.user.presentation.dto.UserDto;
 import com.mkhwang.gifticon.command.review.domain.Review;
+import com.mkhwang.gifticon.command.review.infra.ReviewRepository;
+import com.mkhwang.gifticon.common.config.GenericMapper;
+import com.mkhwang.gifticon.common.dto.PaginationDto;
+import com.mkhwang.gifticon.common.exception.ResourceNotFoundException;
+import com.mkhwang.gifticon.query.review.infra.ReviewQueryRepository;
+import com.mkhwang.gifticon.query.review.presentation.dto.ReviewDto;
 import com.mkhwang.gifticon.query.user.domain.User;
-import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.mkhwang.gifticon.query.user.infra.UserRepository;
+import com.mkhwang.gifticon.query.user.presentation.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor

@@ -1,8 +1,8 @@
 package com.mkhwang.gifticon.query.gifticon.application.mapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
 import com.mkhwang.gifticon.command.gifticon.domain.Gifticon;
+import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
 import com.mkhwang.gifticon.query.gifticon.domain.GifticonDocument;
 import com.mkhwang.gifticon.query.gifticon.domain.UserRatingSummary;
 import com.mkhwang.gifticon.query.review.presentation.dto.ReviewDto;
@@ -82,7 +82,7 @@ public class GifticonQueryResponseMapper {
             .description(gifticon.getDescription())
             .brand(objectMapper.convertValue(gifticon.getBrand(), GifticonDto.Brand.class))
             .seller(objectMapper.convertValue(gifticon.getSeller(), GifticonDto.Seller.class))
-            .status(gifticon.getStatus().toString())
+            .status(gifticon.getStatus())
             .createdAt(gifticon.getCreatedAt())
             .updatedAt(gifticon.getUpdatedAt())
             .price(objectMapper.convertValue(gifticon.getPrice(), GifticonDto.Price.class))

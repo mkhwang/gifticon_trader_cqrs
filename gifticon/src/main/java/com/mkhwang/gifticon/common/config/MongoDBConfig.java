@@ -12,30 +12,30 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories(basePackages = "com.mkhwang.gifticon.query.gifticon.infra")
 public class MongoDBConfig {
 
-    @Value("${spring.mongodb.host}")
-    private String host;
+  @Value("${spring.mongodb.host}")
+  private String host;
 
-    @Value("${spring.mongodb.port}")
-    private int port;
+  @Value("${spring.mongodb.port}")
+  private int port;
 
-    @Value("${spring.mongodb.username}")
-    private String username;
+  @Value("${spring.mongodb.username}")
+  private String username;
 
-    @Value("${spring.mongodb.password}")
-    private String password;
+  @Value("${spring.mongodb.password}")
+  private String password;
 
-    @Value("${spring.mongodb.database}")
-    private String database;
+  @Value("${spring.mongodb.database}")
+  private String database;
 
-    @Bean
-    public MongoClient mongoClient() {
-        String connectionString = String.format("mongodb://%s:%s@%s:%d",
-                username, password, host, port);
-        return MongoClients.create(connectionString);
-    }
+  @Bean
+  public MongoClient mongoClient() {
+    String connectionString = String.format("mongodb://%s:%s@%s:%d",
+            username, password, host, port);
+    return MongoClients.create(connectionString);
+  }
 
-    @Bean
-    public MongoTemplate mongoTemplate() {
-        return new MongoTemplate(mongoClient(), database);
-    }
+  @Bean
+  public MongoTemplate mongoTemplate() {
+    return new MongoTemplate(mongoClient(), database);
+  }
 }

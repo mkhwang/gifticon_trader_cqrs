@@ -15,26 +15,26 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class MongoDBInitService {
 
-    private final MongoTemplate mongoTemplate;
+  private final MongoTemplate mongoTemplate;
 
-    @EventListener(ApplicationReadyEvent.class)
-    public void initCollections() {
-        try {
-            log.info("Initializing MongoDB collections...");
+  @EventListener(ApplicationReadyEvent.class)
+  public void initCollections() {
+    try {
+      log.info("Initializing MongoDB collections...");
 
-            if (!mongoTemplate.collectionExists(GifticonDocument.class)) {
-                Collation collation = Collation.of("ko") // or "en", "simple"
-                        .strength(Collation.ComparisonLevel.secondary());
-                CollectionOptions options = CollectionOptions.empty().collation(collation);
+      if (!mongoTemplate.collectionExists(GifticonDocument.class)) {
+        Collation collation = Collation.of("ko") // or "en", "simple"
+                .strength(Collation.ComparisonLevel.secondary());
+        CollectionOptions options = CollectionOptions.empty().collation(collation);
 
-                mongoTemplate.createCollection(GifticonDocument.class, options);
-                log.info("Created gifticon collection");
-            }
+        mongoTemplate.createCollection(GifticonDocument.class, options);
+        log.info("Created gifticon collection");
+      }
 
-            log.info("MongoDB collections initialized successfully");
-        } catch (Exception e) {
-            log.error("Failed to initialize MongoDB collections", e);
-        }
+      log.info("MongoDB collections initialized successfully");
+    } catch (Exception e) {
+      log.error("Failed to initialize MongoDB collections", e);
     }
+  }
 
 }

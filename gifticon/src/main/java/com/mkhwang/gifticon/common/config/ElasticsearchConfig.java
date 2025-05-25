@@ -10,21 +10,21 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 @EnableElasticsearchRepositories(basePackages = "com.mkhwang.gifticon.query.gifticon.infra")
 public class ElasticsearchConfig extends ElasticsearchConfiguration {
 
-    @Value("${spring.elasticsearch.host:elasticsearch}")
-    private String host;
+  @Value("${spring.elasticsearch.host:elasticsearch}")
+  private String host;
 
-    @Value("${spring.elasticsearch.port:9200}")
-    private int port;
+  @Value("${spring.elasticsearch.port:9200}")
+  private int port;
 
-    @Override
-    public ClientConfiguration clientConfiguration() {
-        return ClientConfiguration.builder()
-                .connectedTo(host + ":" + port)
-                .build();
-    }
+  @Override
+  public ClientConfiguration clientConfiguration() {
+    return ClientConfiguration.builder()
+            .connectedTo(host + ":" + port)
+            .build();
+  }
 
-    @Override
-    protected boolean writeTypeHints() {
-        return false;
-    }
+  @Override
+  protected boolean writeTypeHints() {
+    return false;
+  }
 }

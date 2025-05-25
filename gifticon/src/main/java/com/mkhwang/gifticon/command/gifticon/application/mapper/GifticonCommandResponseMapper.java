@@ -1,7 +1,7 @@
 package com.mkhwang.gifticon.command.gifticon.application.mapper;
 
-import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
 import com.mkhwang.gifticon.command.gifticon.domain.Gifticon;
+import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
 import org.springframework.stereotype.Component;
 
 @Component

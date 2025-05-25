@@ -11,30 +11,30 @@ import java.util.List;
 
 public class GifticonQuery {
 
-    @Data
-    @Builder
-    public static class GetGifticon {
-        private Long gifticonId;
-    }
+  @Data
+  @Builder
+  public static class GetGifticon {
+    private Long gifticonId;
+  }
 
-    @Data
-    @Builder
-    public static class ListGifticons {
-        private String status;
-        private BigDecimal minPrice;
-        private BigDecimal maxPrice;
-        private List<Long> category;
-        private Long seller;
-        private Long brand;
-        private List<Long> tag;
-        private String search;
+  @Data
+  @Builder
+  public static class ListGifticons {
+    private String status;
+    private BigDecimal minPrice;
+    private BigDecimal maxPrice;
+    private List<Long> category;
+    private Long seller;
+    private Long brand;
+    private List<Long> tag;
+    private String search;
 
-        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-        private LocalDate createdFrom;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate createdFrom;
 
-        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-        private LocalDate createdTo;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate createdTo;
 
-        private PaginationDto.PaginationRequest pagination;
-    }
+    private PaginationDto.PaginationRequest pagination;
+  }
 }

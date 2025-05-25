@@ -1,6 +1,7 @@
 package com.mkhwang.gifticon.command.gifticon.application.service;
 
 import com.mkhwang.gifticon.command.gifticon.application.command.GifticonCommand;
+import com.mkhwang.gifticon.command.gifticon.application.mapper.GifticonCommandResponseMapper;
 import com.mkhwang.gifticon.command.gifticon.application.usecase.CreateGifticonUseCase;
 import com.mkhwang.gifticon.command.gifticon.application.usecase.DeleteGifticonUseCase;
 import com.mkhwang.gifticon.command.gifticon.application.usecase.TradeGifticonUseCase;
@@ -10,7 +11,6 @@ import com.mkhwang.gifticon.command.gifticon.domain.GifticonPrice;
 import com.mkhwang.gifticon.command.gifticon.domain.GifticonStatus;
 import com.mkhwang.gifticon.command.gifticon.infra.GifticonRepository;
 import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
-import com.mkhwang.gifticon.command.gifticon.application.mapper.GifticonCommandResponseMapper;
 import com.mkhwang.gifticon.command.tag.domain.Tag;
 import com.mkhwang.gifticon.command.tag.infra.TagRepository;
 import com.mkhwang.gifticon.common.exception.ResourceNotFoundException;
@@ -67,11 +67,11 @@ public class GifticonCommandService implements CreateGifticonUseCase, DeleteGift
     // Price 생성 및 저장
     if (command.getPrice() != null) {
       GifticonPrice price = GifticonPrice.builder()
-                      .gifticon(gifticon)
-                      .basePrice(command.getPrice().getBasePrice())
-                      .salePrice(command.getPrice().getSalePrice())
-                      .currency(command.getPrice().getCurrency())
-                      .build();
+              .gifticon(gifticon)
+              .basePrice(command.getPrice().getBasePrice())
+              .salePrice(command.getPrice().getSalePrice())
+              .currency(command.getPrice().getCurrency())
+              .build();
       gifticon.setPrice(price);
     }
 

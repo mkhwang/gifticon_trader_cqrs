@@ -1,8 +1,8 @@
 package com.mkhwang.gifticon.query.user.presentation;
 
 import com.mkhwang.gifticon.common.dto.ApiResponse;
-import com.mkhwang.gifticon.query.user.application.UserService;
 import com.mkhwang.gifticon.common.dto.PaginationDto;
+import com.mkhwang.gifticon.query.user.application.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
