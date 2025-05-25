@@ -1,12 +1,11 @@
 package com.mkhwang.gifticon.query.gifticon.application;
 
-import com.mkhwang.gifticon.command.gifticon.application.GifticonDto;
 import com.mkhwang.gifticon.command.gifticon.domain.Gifticon;
 import com.mkhwang.gifticon.command.gifticon.domain.QGifticon;
 import com.mkhwang.gifticon.command.gifticon.domain.QGifticonImage;
 import com.mkhwang.gifticon.command.gifticon.domain.QGifticonPrice;
 import com.mkhwang.gifticon.command.gifticon.infra.GifticonRepository;
-import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonListResponse;
+import com.mkhwang.gifticon.command.gifticon.presentation.dto.*;
 import com.mkhwang.gifticon.command.review.domain.QReview;
 import com.mkhwang.gifticon.command.tag.domain.QTag;
 import com.mkhwang.gifticon.common.config.QuerydslUtil;
@@ -28,10 +27,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import com.mkhwang.gifticon.command.gifticon.application.QGifticonDto_GifticonSummary;
-import com.mkhwang.gifticon.command.gifticon.application.QGifticonDto_Image;
-import com.mkhwang.gifticon.command.gifticon.application.QGifticonDto_Brand;
-import com.mkhwang.gifticon.command.gifticon.application.QGifticonDto_Seller;
 
 import java.util.List;
 import java.util.Map;

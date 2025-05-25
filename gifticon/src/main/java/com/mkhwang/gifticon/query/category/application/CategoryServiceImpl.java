@@ -1,17 +1,17 @@
 package com.mkhwang.gifticon.query.category.application;
 
-import com.mkhwang.gifticon.command.gifticon.application.*;
 import com.mkhwang.gifticon.command.gifticon.domain.QGifticon;
 import com.mkhwang.gifticon.command.gifticon.domain.QGifticonImage;
 import com.mkhwang.gifticon.command.gifticon.domain.QGifticonPrice;
+import com.mkhwang.gifticon.command.gifticon.presentation.dto.*;
 import com.mkhwang.gifticon.common.config.GenericMapper;
 import com.mkhwang.gifticon.common.config.QuerydslUtil;
+import com.mkhwang.gifticon.common.dto.PaginationDto;
 import com.mkhwang.gifticon.common.exception.ResourceNotFoundException;
 import com.mkhwang.gifticon.query.brand.domain.QBrand;
 import com.mkhwang.gifticon.query.category.domain.Category;
 import com.mkhwang.gifticon.query.category.infra.CategoryRepository;
 import com.mkhwang.gifticon.query.category.presentation.dto.CategoryDto;
-import com.mkhwang.gifticon.common.dto.PaginationDto;
 import com.mkhwang.gifticon.query.user.domain.QUser;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;

@@ -1,7 +1,7 @@
 package com.mkhwang.gifticon.query.category.presentation.dto;
 
 import com.mkhwang.gifticon.common.dto.PaginationDto;
-import com.mkhwang.gifticon.command.gifticon.application.GifticonDto;
+import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

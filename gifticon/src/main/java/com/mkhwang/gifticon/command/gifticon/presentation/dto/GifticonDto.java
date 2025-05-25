@@ -1,4 +1,4 @@
-package com.mkhwang.gifticon.command.gifticon.application;
+package com.mkhwang.gifticon.command.gifticon.presentation.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;

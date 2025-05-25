@@ -1,11 +1,15 @@
-package com.mkhwang.gifticon.command.gifticon.application;
+package com.mkhwang.gifticon.command.gifticon.application.service;
 
 import com.mkhwang.gifticon.command.gifticon.application.command.GifticonCommand;
+import com.mkhwang.gifticon.command.gifticon.application.usecase.CreateGifticonUseCase;
+import com.mkhwang.gifticon.command.gifticon.application.usecase.DeleteGifticonUseCase;
+import com.mkhwang.gifticon.command.gifticon.application.usecase.TradeGifticonUseCase;
 import com.mkhwang.gifticon.command.gifticon.domain.Gifticon;
 import com.mkhwang.gifticon.command.gifticon.domain.GifticonImage;
 import com.mkhwang.gifticon.command.gifticon.domain.GifticonPrice;
 import com.mkhwang.gifticon.command.gifticon.domain.GifticonStatus;
 import com.mkhwang.gifticon.command.gifticon.infra.GifticonRepository;
+import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
 import com.mkhwang.gifticon.command.gifticon.presentation.mapper.GifticonResponseMapper;
 import com.mkhwang.gifticon.command.tag.domain.Tag;
 import com.mkhwang.gifticon.command.tag.infra.TagRepository;
@@ -25,7 +29,7 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class GifticonService implements GifticonCommandHandler {
+public class GifticonCommandService implements CreateGifticonUseCase, DeleteGifticonUseCase, TradeGifticonUseCase {
   private final GifticonRepository gifticonRepository;
   private final UserRepository userRepository;
   private final BrandRepository brandRepository;

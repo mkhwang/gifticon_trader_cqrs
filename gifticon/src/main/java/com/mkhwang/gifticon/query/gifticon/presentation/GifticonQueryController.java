@@ -1,6 +1,6 @@
 package com.mkhwang.gifticon.query.gifticon.presentation;
 
-import com.mkhwang.gifticon.command.gifticon.application.GifticonDto;
+import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
 import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonListRequest;
 import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonListResponse;
 import com.mkhwang.gifticon.common.dto.ApiResponse;

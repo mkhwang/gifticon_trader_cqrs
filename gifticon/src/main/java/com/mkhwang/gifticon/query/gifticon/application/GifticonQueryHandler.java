@@ -2,7 +2,7 @@ package com.mkhwang.gifticon.query.gifticon.application;
 
 
 import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonListResponse;
-import com.mkhwang.gifticon.command.gifticon.application.GifticonDto;
+import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
 import com.mkhwang.gifticon.query.gifticon.presentation.dto.GifticonQuery;
 
 public interface GifticonQueryHandler {

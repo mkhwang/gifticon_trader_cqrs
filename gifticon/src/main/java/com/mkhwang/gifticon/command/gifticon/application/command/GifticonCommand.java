@@ -1,6 +1,6 @@
 package com.mkhwang.gifticon.command.gifticon.application.command;
 
-import com.mkhwang.gifticon.command.gifticon.application.GifticonDto;
+import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
 import lombok.Builder;
 import lombok.Data;
 
