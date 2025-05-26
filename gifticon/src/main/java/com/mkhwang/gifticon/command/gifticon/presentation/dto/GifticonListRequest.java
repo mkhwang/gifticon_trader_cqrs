@@ -23,7 +23,6 @@ public class GifticonListRequest {
   private Long seller;
   private Long brand;
   private Boolean inStock;
-  private List<Long> tag;
   private String search;
 
   @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)

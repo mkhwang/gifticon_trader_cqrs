@@ -1,6 +1,7 @@
 package com.mkhwang.gifticon.query.gifticon.application.mapper;
 
 import com.mkhwang.gifticon.command.gifticon.domain.Gifticon;
+import com.mkhwang.gifticon.command.gifticon.presentation.dto.GifticonDto;
 import com.mkhwang.gifticon.command.tag.domain.Tag;
 import com.mkhwang.gifticon.query.gifticon.domain.GifticonDocument;
 import com.mkhwang.gifticon.query.gifticon.domain.GifticonSearchDocument;
@@ -20,9 +21,10 @@ public class GifticonDocumentMapper {
             .status(gifticon.getStatus().toString())
             .basePrice(gifticon.getPrice().getBasePrice())
             .salePrice(gifticon.getPrice().getSalePrice())
-            .categoryId(gifticon.getCategory().getId())
+            .category(gifticon.getCategory().getName())
+            .seller(gifticon.getSeller().getNickname())
             .sellerId(gifticon.getSeller().getId())
-            .brandId(gifticon.getBrand().getId())
+            .brand(gifticon.getBrand().getName())
             .tags(gifticon.getTags().stream()
                     .map(Tag::getName)
                     .toList())
@@ -80,5 +82,9 @@ public class GifticonDocumentMapper {
             .updatedAt(gifticon.getUpdatedAt())
             .slug(gifticon.getSlug())
             .build();
+  }
+
+  public GifticonDto.GifticonSummary toSummary(GifticonDocument gifticonDocument) {
+    return GifticonDto.GifticonSummary.builder().build();
   }
 }

@@ -26,7 +26,6 @@ public class GifticonQuery {
     private List<Long> category;
     private Long seller;
     private Long brand;
-    private List<Long> tag;
     private String search;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)

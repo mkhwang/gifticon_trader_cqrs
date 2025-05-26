@@ -39,13 +39,19 @@ public class GifticonSearchDocument {
   private BigDecimal salePrice;
 
   @Field(type = FieldType.Keyword)
-  private Long categoryId;
+  private String category;
 
   @Field(type = FieldType.Keyword)
+  private String seller;
+
+  @Field(type = FieldType.Long)
   private Long sellerId;
 
   @Field(type = FieldType.Keyword)
-  private Long brandId;
+  private String buyer;
+
+  @Field(type = FieldType.Keyword)
+  private String brand;
 
   @Field(type = FieldType.Keyword)
   @Builder.Default

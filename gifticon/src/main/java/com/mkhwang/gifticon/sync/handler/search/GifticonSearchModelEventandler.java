@@ -1,8 +1,11 @@
 package com.mkhwang.gifticon.sync.handler.search;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mkhwang.gifticon.query.brand.infra.BrandRepository;
+import com.mkhwang.gifticon.query.category.infra.CategoryRepository;
 import com.mkhwang.gifticon.query.gifticon.domain.GifticonSearchDocument;
 import com.mkhwang.gifticon.query.gifticon.infra.GifticonSearchRepository;
+import com.mkhwang.gifticon.query.user.infra.UserRepository;
 import com.mkhwang.gifticon.sync.handler.dto.CdcEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -15,10 +18,18 @@ import java.util.Optional;
 public class GifticonSearchModelEventandler extends GifticonSearchModelBaseEventHandler {
 
   private final GifticonSearchRepository gifticonSearchRepository;
+  private final UserRepository userRepository;
+  private final BrandRepository brandRepository;
+  private final CategoryRepository categoryRepository;
 
-  public GifticonSearchModelEventandler(ObjectMapper objectMapper, GifticonSearchRepository gifticonSearchRepository) {
+  public GifticonSearchModelEventandler(ObjectMapper objectMapper, GifticonSearchRepository gifticonSearchRepository,
+                                        UserRepository userRepository, BrandRepository brandRepository,
+                                        CategoryRepository categoryRepository) {
     super(objectMapper);
     this.gifticonSearchRepository = gifticonSearchRepository;
+    this.userRepository = userRepository;
+    this.brandRepository = brandRepository;
+    this.categoryRepository = categoryRepository;
   }
 
   @Override
@@ -62,8 +73,23 @@ public class GifticonSearchModelEventandler extends GifticonSearchModelBaseEvent
     document.setSlug(getStringValue(data, "slug"));
     document.setDescription(getStringValue(data, "description"));
     document.setStatus(getStringValue(data, "status"));
-    document.setSellerId(getLongValue(data, "seller_id"));
-    document.setBrandId(getLongValue(data, "brand_id"));
+
+    userRepository.findById(getLongValue(data, "seller_id"))
+        .ifPresent(user -> {
+          document.setSeller(user.getNickname());
+          document.setSellerId(user.getId());
+        });
+    brandRepository.findById(getLongValue(data, "brand_id")).ifPresent(brand -> {
+      document.setBrand(brand.getName());
+    });
+    categoryRepository.findById(getLongValue(data, "category_id")).ifPresent(category -> {
+      document.setCategory(category.getName());
+    });
+
+    if (data.containsKey("buyer_id") && getLongValue(data, "buyer_id") != null) {
+      userRepository.findById(getLongValue(data, "buyer_id"))
+          .ifPresent(user -> document.setBuyer(user.getNickname()));
+    }
 
     // 날짜 필드 처리
     if (data.containsKey("created_at")) {
@@ -81,7 +107,6 @@ public class GifticonSearchModelEventandler extends GifticonSearchModelBaseEvent
       // 기존 필드 복원
       document.setBasePrice(existing.getBasePrice());
       document.setSalePrice(existing.getSalePrice());
-      document.setCategoryId(existing.getCategoryId());
       document.setTags(existing.getTags());
     }
 

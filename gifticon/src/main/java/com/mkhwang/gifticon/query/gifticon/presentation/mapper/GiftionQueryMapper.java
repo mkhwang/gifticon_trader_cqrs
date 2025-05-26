@@ -17,7 +17,6 @@ public class GiftionQueryMapper {
             .category(request.getCategory())
             .seller(request.getSeller())
             .brand(request.getBrand())
-            .tag(request.getTag())
             .search(request.getSearch())
             .createdFrom(request.getCreatedFrom())
             .createdTo(request.getCreatedTo())
