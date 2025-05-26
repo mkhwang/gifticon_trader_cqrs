@@ -39,4 +39,27 @@ public class Review extends BaseCreateUpdateAudit {
 
   @Column(columnDefinition = "TEXT", nullable = false)
   private String content;
+
+  public static Review of(Gifticon gifticon, User reviewer, Integer rating, String title, String content) {
+    Review review = new Review();
+    review.gifticon = gifticon;
+    review.user = gifticon.getSeller();
+    review.reviewer = reviewer;
+    review.rating = rating;
+    review.title = title;
+    review.content = content;
+
+    if (!gifticon.isReviewable()) {
+      throw new IllegalArgumentException("Gifticon is not reviewable.");
+    }
+
+    if (!gifticon.isOwnedBy(reviewer.getId())) {
+      throw new IllegalArgumentException("Reviewer must own the gifticon to write a review.");
+    }
+
+    if (gifticon.getBuyer() != reviewer) {
+      throw new IllegalArgumentException("Reviewer must be the buyer of the gifticon.");
+    }
+    return review;
+  }
 }

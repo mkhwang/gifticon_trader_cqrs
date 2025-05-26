@@ -1,16 +1,19 @@
 package com.mkhwang.gifticon.command.review.presentation.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class ReviewCreateRequest {
+public class ReviewCreateResponse {
+  private Long id;
   private Long gifticonId;
-  private Integer rating;
+  private Long reviewerId;
   private String title;
   private String content;
-  private Long reviewerId;
+  private int rating;
 }

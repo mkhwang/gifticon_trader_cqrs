@@ -75,4 +75,41 @@ public class Gifticon extends BaseCreateUpdateAudit {
   @Builder.Default
   private List<Review> reviews = new ArrayList<>();
 
+  public boolean isOwnedBy(Long reviewerId) {
+    return this.seller != null && this.seller.getId().equals(reviewerId);
+  }
+
+  public boolean isTradeAble() {
+    return this.status == GifticonStatus.ON_SALE;
+  }
+
+  public boolean isReviewable() {
+    return this.status == GifticonStatus.SOLD_OUT && this.buyer != null;
+  }
+
+  public boolean isDeleteAble() {
+    return this.status == GifticonStatus.ON_SALE;
+  }
+
+  public void buy(User user) {
+    if (this.isOwnedBy(user.getId())) {
+      throw new IllegalArgumentException("Seller cannot buy their own gifticon");
+    }
+    if (!this.isTradeAble()) {
+      throw new IllegalArgumentException("Gifticon is not available for trade");
+    }
+
+    this.status = GifticonStatus.SOLD_OUT;
+    this.buyer = user;
+  }
+
+  public void delete(Long userId) {
+    if (!this.isOwnedBy(userId)) {
+      throw new IllegalArgumentException("User does not own this gifticon");
+    }
+    if (!this.isDeleteAble()) {
+      throw new IllegalArgumentException("Gifticon cannot be deleted.");
+    }
+    this.status = GifticonStatus.DELETED;
+  }
 }

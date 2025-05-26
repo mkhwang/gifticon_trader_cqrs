@@ -101,7 +101,6 @@ public class GifticonCommandService implements CreateGifticonUseCase, DeleteGift
       }
     }
 
-    // 최종 저장 및 응답 생성
     gifticon = gifticonRepository.save(gifticon);
     return gifticonCommandResponseMapper.toDto(gifticon);
   }
@@ -114,15 +113,7 @@ public class GifticonCommandService implements CreateGifticonUseCase, DeleteGift
     User user = userRepository.findById(command.getBuyer()).orElseThrow(
             () -> new ResourceNotFoundException("User", command.getBuyer()));
 
-    if (gifticon.getSeller().getId().equals(command.getBuyer())) {
-      throw new IllegalArgumentException("You cannot trade your own gifticon.");
-    }
-    if (gifticon.getStatus() != GifticonStatus.ON_SALE) {
-      throw new IllegalArgumentException("Gifticon is not available for trade.");
-    }
-
-    gifticon.setBuyer(user);
-    gifticon.setStatus(GifticonStatus.SOLD_OUT);
+    gifticon.buy(user);
     gifticon = gifticonRepository.save(gifticon);
     return gifticonCommandResponseMapper.toDto(gifticon);
   }
@@ -133,13 +124,7 @@ public class GifticonCommandService implements CreateGifticonUseCase, DeleteGift
     Gifticon gifticon = gifticonRepository.findById(command.getGifticonId()).orElseThrow(
             () -> new ResourceNotFoundException("Gifticon", command.getGifticonId()));
 
-    if (gifticon.getStatus() != GifticonStatus.ON_SALE) {
-      throw new IllegalArgumentException("Gifticon cannot be deleted.");
-    }
-
-    gifticon.setStatus(GifticonStatus.DELETED);
+    gifticon.delete(command.getUserId());
     gifticonRepository.save(gifticon);
   }
-
-
 }

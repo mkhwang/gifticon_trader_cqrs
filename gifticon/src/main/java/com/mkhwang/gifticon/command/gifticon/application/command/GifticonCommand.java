@@ -30,6 +30,7 @@ public class GifticonCommand {
   @Builder
   public static class DeleteGifticon {
     private Long gifticonId;
+    private Long userId;
   }
 
   @Data
