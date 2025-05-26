@@ -23,6 +23,8 @@ public class UserDto {
 
   @Data
   @Builder
+  @NoArgsConstructor
+  @AllArgsConstructor
   public static class UserPage {
     private List<User> users;
     private PaginationDto.PaginationInfo pagination;

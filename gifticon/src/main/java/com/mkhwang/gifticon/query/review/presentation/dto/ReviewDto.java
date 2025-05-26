@@ -1,6 +1,7 @@
 package com.mkhwang.gifticon.query.review.presentation.dto;
 
 import com.mkhwang.gifticon.common.dto.PaginationDto;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -34,7 +35,6 @@ public class ReviewDto {
 
   @Data
   @NoArgsConstructor
-  @AllArgsConstructor
   @Builder
   public static class Review {
     private Long id;
@@ -43,17 +43,32 @@ public class ReviewDto {
     private String title;
     private String content;
     private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+
+    @QueryProjection
+    public Review(Long id, User user, Integer rating, String title, String content, LocalDateTime createdAt) {
+      this.id = id;
+      this.user = user;
+      this.rating = rating;
+      this.title = title;
+      this.content = content;
+      this.createdAt = createdAt;
+    }
   }
 
   @Data
   @NoArgsConstructor
-  @AllArgsConstructor
   @Builder
   public static class User {
     private Long id;
-    private String name;
+    private String nickName;
     private String profileImageUrl;
+
+    @QueryProjection
+    public User(Long id, String nickName, String profileImageUrl) {
+      this.id = id;
+      this.nickName = nickName;
+      this.profileImageUrl = profileImageUrl;
+    }
   }
 
   @Data
