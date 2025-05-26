@@ -68,3 +68,6 @@ CQRS를 적용한 기프티콘 거래 서비스
 - **Database**: PostgreSQL (Command), MongoDB & Elasticsearch (Query), Redis (Cache)
 - **Messaging / Stream**: Apache Kafka, Debezium (CDC)
 - **Infra**: Docker, Docker Compose
+
+## 4. 부하테스트 Report
+- [롹인하기](./k6/README.md)
