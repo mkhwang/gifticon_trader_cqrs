@@ -19,7 +19,7 @@ public class User {
   private String nickname;
   private String profileImageUrl;
 
-  public static User  of(String username, String nickname, String profileImageUrl) {
+  public static User of(String username, String nickname, String profileImageUrl) {
     return new User(null, username, nickname, profileImageUrl);
   }
 }

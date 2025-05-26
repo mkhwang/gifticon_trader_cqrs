@@ -53,7 +53,7 @@ public class Review extends BaseCreateUpdateAudit {
       throw new IllegalArgumentException("Gifticon is not reviewable.");
     }
 
-    if (!gifticon.isOwnedBy(reviewer.getId())) {
+    if (gifticon.isOwnedBy(reviewer.getId())) {
       throw new IllegalArgumentException("Reviewer must own the gifticon to write a review.");
     }
 

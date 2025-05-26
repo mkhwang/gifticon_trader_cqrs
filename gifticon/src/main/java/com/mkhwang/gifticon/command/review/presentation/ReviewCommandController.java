@@ -7,6 +7,7 @@ import com.mkhwang.gifticon.command.review.presentation.dto.ReviewCreateRequest;
 import com.mkhwang.gifticon.command.review.presentation.dto.ReviewCreateResponse;
 import com.mkhwang.gifticon.common.dto.ApiResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,6 @@ public class ReviewCommandController {
   public ResponseEntity<?> createReview(ReviewCreateRequest request) {
     ReviewCommand.CreateReview command = reviewCommandMapper.toCreateReviewCommand(request);
     ReviewCreateResponse review = createReviewUseCase.createReview(command);
-    return ResponseEntity.ok(ApiResponse.builder().data(review).success(true).build());
+    return ResponseEntity.status(HttpStatus.CREATED).body(ApiResponse.builder().data(review).success(true).build());
   }
 }

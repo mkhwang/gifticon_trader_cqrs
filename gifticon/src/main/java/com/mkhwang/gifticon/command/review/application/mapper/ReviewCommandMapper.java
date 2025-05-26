@@ -19,14 +19,4 @@ public class ReviewCommandMapper {
             .rating(request.getRating())
             .build();
   }
-
-  public Review toReview(ReviewCommand.CreateReview command, Gifticon gifticon, User reviewer) {
-    return Review.builder()
-            .gifticon(gifticon)
-            .user(gifticon.getSeller())
-            .reviewer(reviewer)
-            .content(command.getContent())
-            .rating(command.getRating())
-            .build();
-  }
 }
