@@ -49,7 +49,7 @@ public class GifticonSearchDocument {
 
   @Field(type = FieldType.Keyword)
   @Builder.Default
-  private List<Long> tagIds = new ArrayList<>();
+  private List<String> tags = new ArrayList<>();
 
   @Field(type = FieldType.Date, format = DateFormat.epoch_millis)
   private Instant createdAt;

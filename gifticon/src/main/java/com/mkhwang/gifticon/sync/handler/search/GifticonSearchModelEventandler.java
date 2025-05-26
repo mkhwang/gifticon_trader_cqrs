@@ -82,7 +82,7 @@ public class GifticonSearchModelEventandler extends GifticonSearchModelBaseEvent
       document.setBasePrice(existing.getBasePrice());
       document.setSalePrice(existing.getSalePrice());
       document.setCategoryId(existing.getCategoryId());
-      document.setTagIds(existing.getTagIds());
+      document.setTags(existing.getTags());
     }
 
     // 저장

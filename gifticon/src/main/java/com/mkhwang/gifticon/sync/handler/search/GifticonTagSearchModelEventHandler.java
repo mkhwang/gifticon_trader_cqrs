@@ -51,6 +51,7 @@ public class GifticonTagSearchModelEventHandler extends GifticonSearchModelBaseE
 
     gifticonId = getLongValue(data, "gifticon_id");
     Long tagId = getLongValue(data, "tag_id");
+    String tagName = getStringValue(data, "name");
 
     // 태그 목록을 조회해야 함 - 기존 문서 필요
     Optional<GifticonSearchDocument> optionalDocument = gifticonSearchRepository.findById(gifticonId);
@@ -62,24 +63,21 @@ public class GifticonTagSearchModelEventHandler extends GifticonSearchModelBaseE
     GifticonSearchDocument document = optionalDocument.get();
 
     // 기존 태그 목록 가져오기
-    List<Long> tagIds = document.getTagIds();
-    if (tagIds == null) {
-      tagIds = new ArrayList<>();
+    List<String> tags = document.getTags();
+    if (tags == null) {
+      tags = new ArrayList<>();
     }
 
     // 태그 매핑 추가 또는 제거
     boolean updated = false;
     if (event.isDelete()) {
-      updated = tagIds.remove(tagId);
-    } else if (!tagIds.contains(tagId)) {
-      tagIds.add(tagId);
-      updated = true;
+      updated = tags.remove(tagName);
     }
 
     // 변경된 경우에만 업데이트
     if (updated) {
       Map<String, Object> updates = new HashMap<>();
-      updates.put("tagIds", tagIds);
+      updates.put("tags", tags);
       updatePartialDocument(gifticonId, updates);
     }
   }
