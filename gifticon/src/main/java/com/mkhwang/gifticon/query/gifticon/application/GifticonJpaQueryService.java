@@ -21,7 +21,6 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,7 +32,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class GifticonJapQueryService implements GifticonQueryHandler {
+public class GifticonJpaQueryService implements GifticonQueryHandler {
 
   private final GifticonRepository gifticonRepository;
   private final JPAQueryFactory jpaQueryFactory;
