@@ -1,12 +1,10 @@
 package com.mkhwang.gifticon.query.user.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
+@Setter
 @Entity
 @Table(name = "users")
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,4 +18,8 @@ public class User {
   @Column(nullable = false)
   private String nickname;
   private String profileImageUrl;
+
+  public static User  of(String username, String nickname, String profileImageUrl) {
+    return new User(null, username, nickname, profileImageUrl);
+  }
 }

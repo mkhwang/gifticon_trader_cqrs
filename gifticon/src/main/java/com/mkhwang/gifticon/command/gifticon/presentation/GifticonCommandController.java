@@ -37,7 +37,7 @@ public class GifticonCommandController {
   @PostMapping("/api/gifticon/{id}/trade")
   public ResponseEntity<ApiResponse<GifticonDto.Gifticon>> tradeGifticon(@PathVariable Long id, @RequestBody GifticonTradeRequest request) {
     GifticonDto.Gifticon gifticon = tradeGifticonUseCase.tradeGifticon(gifticonCommandMapper.toTradeCommand(id, request.getUserId()));
-    return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(gifticon, "기프티콘이 성공적으로 등록되었습니다."));
+    return ResponseEntity.status(HttpStatus.OK).body(ApiResponse.success(gifticon, "기프티콘 거래가 완료되었습니다."));
   }
 
   @Operation(summary = "Gifticons 삭제", description = "Gifticons 삭제 API")
