@@ -13,6 +13,7 @@ import com.mkhwang.gifticon.query.gifticon.domain.UserRatingSummary;
 import com.mkhwang.gifticon.query.gifticon.infra.GifticonDocumentRepository;
 import com.mkhwang.gifticon.query.gifticon.presentation.dto.GifticonQuery;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.client.elc.NativeQuery;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 
+@Primary
 @Component
 @RequiredArgsConstructor
 public class GifticonQueryService implements GifticonQueryHandler {

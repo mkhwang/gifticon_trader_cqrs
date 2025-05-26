@@ -141,3 +141,16 @@ services:
       - "6379:6379"
     volumes:
       - ./redis_data:/data
+
+  prometheus:
+    container_name: gifticon-prometheus
+    image: prom/prometheus:latest
+    volumes:
+      - ./prom/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+  grafana:
+    container_name: gifticon-grafana
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"

@@ -30,7 +30,7 @@ import org.springframework.util.StringUtils;
 import java.util.List;
 import java.util.Optional;
 
-@Primary
+
 @Component
 @RequiredArgsConstructor
 public class GifticonJapQueryService implements GifticonQueryHandler {
