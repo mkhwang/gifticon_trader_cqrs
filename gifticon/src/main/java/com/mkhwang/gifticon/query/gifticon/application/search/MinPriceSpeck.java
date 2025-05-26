@@ -14,7 +14,7 @@ public class MinPriceSpeck implements SearchQuerySpec {
     return RangeQuery.of(rq ->
             rq.number(nrq ->
                     nrq.field("salePrice")
-                            .from(query.getMinPrice().doubleValue())
+                            .gte(query.getMinPrice().doubleValue())
             )
     )._toQuery();
   }

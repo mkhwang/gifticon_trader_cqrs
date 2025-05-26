@@ -36,7 +36,7 @@ public class ReviewQueryRepositoryImpl implements ReviewQueryRepository {
             .groupBy(qReview.user)
             .fetchOne();
     if (flatRating == null) {
-      return null;
+      return ReviewDto.ReviewSummary.builder().averageRating(0d).totalCount(0).distribution(Map.of()).build();
     }
     return ReviewDto.ReviewSummary.builder()
             .averageRating(flatRating.getAverage())

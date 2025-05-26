@@ -17,8 +17,8 @@ public class CreatedRangeSpec implements SearchQuerySpec {
     return RangeQuery.of(rq ->
             rq.date(nrq ->
                     nrq.field("createdAt")
-                            .from(String.valueOf(query.getCreatedTo()))
-                            .to(String.valueOf(query.getCreatedFrom()))
+                            .lte(String.valueOf(query.getCreatedTo()))
+                            .gte(String.valueOf(query.getCreatedFrom()))
             )
     )._toQuery();
   }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-@Document(collation = "gifticon")
+@Document(collection = "gifticon")
 @Data
 @Builder
 @NoArgsConstructor

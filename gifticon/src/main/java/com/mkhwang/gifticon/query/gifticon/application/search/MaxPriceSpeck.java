@@ -17,7 +17,7 @@ public class MaxPriceSpeck implements SearchQuerySpec {
     return RangeQuery.of(rq ->
             rq.number(nrq ->
                     nrq.field("salePrice")
-                            .to(query.getMaxPrice().doubleValue())
+                            .lte(query.getMaxPrice().doubleValue())
             )
     )._toQuery();
   }
