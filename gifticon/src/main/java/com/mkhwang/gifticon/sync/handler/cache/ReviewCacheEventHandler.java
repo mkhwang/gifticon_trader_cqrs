@@ -2,6 +2,8 @@ package com.mkhwang.gifticon.sync.handler.cache;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mkhwang.gifticon.query.gifticon.domain.UserRatingSummary;
+import com.mkhwang.gifticon.query.review.infra.ReviewQueryRepository;
+import com.mkhwang.gifticon.query.review.presentation.dto.ReviewDto;
 import com.mkhwang.gifticon.sync.handler.AbstractCdcEventHandler;
 import com.mkhwang.gifticon.sync.handler.dto.CdcEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -14,10 +16,14 @@ import java.util.Map;
 @Slf4j
 public class ReviewCacheEventHandler extends AbstractCdcEventHandler {
   private final RedisTemplate<String, UserRatingSummary> userRatingSummaryRedisTemplate;
+  private final ReviewQueryRepository reviewQueryRepository;
 
-  public ReviewCacheEventHandler(ObjectMapper objectMapper, RedisTemplate<String, UserRatingSummary> userRatingSummaryRedisTemplate) {
+  public ReviewCacheEventHandler(ObjectMapper objectMapper,
+                                 RedisTemplate<String, UserRatingSummary> userRatingSummaryRedisTemplate,
+                                 ReviewQueryRepository reviewQueryRepository) {
     super(objectMapper);
     this.userRatingSummaryRedisTemplate = userRatingSummaryRedisTemplate;
+    this.reviewQueryRepository = reviewQueryRepository;
   }
 
   @Override
@@ -52,10 +58,13 @@ public class ReviewCacheEventHandler extends AbstractCdcEventHandler {
     }
 
     Long userId = getLongValue(data, "user_id");
+    ReviewDto.ReviewSummary userReviewSummary = reviewQueryRepository.getUserReviewSummary(userId);
+
     UserRatingSummary summary = UserRatingSummary.builder()
             .id(userId)
-            .averageRating(getDoubleValue(data, "average_rating"))
-            .totalCount(getIntegerValue(data, "total_count"))
+            .averageRating(userReviewSummary.getAverageRating())
+            .totalCount(userReviewSummary.getTotalCount())
+            .distribution(userReviewSummary.getDistribution())
             .build();
 
     userRatingSummaryRedisTemplate.opsForValue().set("user:summary:" + userId, summary);

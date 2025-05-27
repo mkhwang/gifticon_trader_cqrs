@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: gifticon
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/gifticon
+    username: gifticon_user
+    password: gifticon1234
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+  kafka:
+    bootstrap-servers: localhost:29092
+    consumer:
+      group-id: gifticon-query-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  elasticsearch:
+    host: localhost
+    port: 9200
+  mongodb:
+    host: localhost
+    port: 27017
+    username: admin
+    password: admin123
+    database: gifticon
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+  flyway:
+    enabled: true
+    locations: classpath:migrations/
+    schemas: public
+    baseline-on-migrate: true
+    baseline-version: 1
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.orm.jdbc.bind: trace

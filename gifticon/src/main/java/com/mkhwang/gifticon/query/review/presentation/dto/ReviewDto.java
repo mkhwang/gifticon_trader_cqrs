@@ -15,26 +15,6 @@ public class ReviewDto {
 
   @Data
   @NoArgsConstructor
-  @AllArgsConstructor
-  @Builder
-  public static class CreateRequest {
-    private Integer rating;
-    private String title;
-    private String content;
-  }
-
-  @Data
-  @NoArgsConstructor
-  @AllArgsConstructor
-  @Builder
-  public static class UpdateRequest {
-    private Integer rating;
-    private String title;
-    private String content;
-  }
-
-  @Data
-  @NoArgsConstructor
   @Builder
   public static class Review {
     private Long id;
