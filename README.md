@@ -42,6 +42,53 @@ CQRS를 적용한 기프티콘 거래 서비스
 ### 1-6. 참고사항
 - MVP 성격의 프로젝트이므로 인증 및 보안은 구현 생략
 
+### 1-7. 프로젝트 구조
+```
+com.mkhwang.gifticon
+├── common
+├── command
+│   ├── gifticon
+│   │   ├── application
+│   │   │   ├── command
+│   │   │   ├── mapper
+│   │   │   ├── service
+│   │   │   └── uesecase
+│   │   ├── domain
+│   │   ├── infra
+│   │   └── presentation
+│   │       ├── dto
+│   │       └── mapper
+│   ├── review
+│   │   └── ...
+│   ├── tag
+│   │   └── ...
+├── query
+│   ├── gifticon
+│   │   ├── application
+│   │   │   ├── mapper
+│   │   │   └── search
+│   │   ├── domain
+│   │   ├── infra
+│   │   └── presentation
+│   │       ├── dto
+│   │       └── mapper
+│   ├── brand
+│   │   └── ...
+│   ├── category
+│   │   └── ...
+│   ├── review
+│   │   └── ...
+│   ├── user
+│   │   └── ...
+└── sync
+    └── handler
+        ├── cache
+        ├── document
+        ├── dto
+        └── search
+
+```
+
 ## 2. 시나리오
 
 ### 2-1. 기프티콘 등록
