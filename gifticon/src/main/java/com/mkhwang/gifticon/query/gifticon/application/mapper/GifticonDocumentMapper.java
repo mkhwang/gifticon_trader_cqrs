@@ -7,6 +7,7 @@ import com.mkhwang.gifticon.query.gifticon.domain.GifticonDocument;
 import com.mkhwang.gifticon.query.gifticon.domain.GifticonSearchDocument;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
@@ -85,6 +86,35 @@ public class GifticonDocumentMapper {
   }
 
   public GifticonDto.GifticonSummary toSummary(GifticonDocument gifticonDocument) {
-    return GifticonDto.GifticonSummary.builder().build();
+    return GifticonDto.GifticonSummary.builder()
+            .id(gifticonDocument.getId())
+            .name(gifticonDocument.getName())
+            .description(gifticonDocument.getDescription())
+            .status(gifticonDocument.getStatus())
+            .basePrice(gifticonDocument.getPrice().get("basePrice") != null ? BigDecimal.valueOf(Double.parseDouble((String) gifticonDocument.getPrice().get("basePrice"))) : BigDecimal.ZERO)
+            .salePrice(gifticonDocument.getPrice().get("salePrice") != null ? BigDecimal.valueOf(Double.parseDouble((String) gifticonDocument.getPrice().get("salePrice"))) : BigDecimal.ZERO)
+            .currency(gifticonDocument.getPrice().get("currency") != null ? (String) gifticonDocument.getPrice().get("currency") : "KRW")
+            .primaryImage(
+                    gifticonDocument.getImages().stream().findFirst().filter(image -> image.get("primary").equals(Boolean.TRUE))
+                            .map(image -> GifticonDto.Image.builder()
+                                    .id((Long) image.get("id"))
+                                    .url((String) image.get("url"))
+                                    .build())
+                            .orElse(null)
+            )
+            .brand(
+                    GifticonDto.Brand.builder()
+                            .id(gifticonDocument.getBrand().get("id") != null ? (Long) gifticonDocument.getBrand().get("id") : 0L)
+                            .name(gifticonDocument.getBrand().get("name") != null ? (String) gifticonDocument.getBrand().get("name") : "")
+                            .build()
+            )
+            .seller(
+                    GifticonDto.Seller.builder()
+                            .id(gifticonDocument.getSeller().get("id") != null ? (Long) gifticonDocument.getSeller().get("id") : 0L)
+                            .nickname(gifticonDocument.getSeller().get("nickname") != null ? (String) gifticonDocument.getSeller().get("nickname") : "")
+                            .build()
+            )
+            .createdAt(gifticonDocument.getCreatedAt())
+            .build();
   }
 }
