@@ -6,7 +6,7 @@ import com.mkhwang.gifticon.query.gifticon.presentation.dto.GifticonQuery;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MinPriceSpeck implements SearchQuerySpec {
+public class MinPriceSpec implements SearchQuerySpec {
   @Override
   public Query build(GifticonQuery.ListGifticons query) {
     if (query.getMinPrice() == null) return null;

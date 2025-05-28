@@ -9,7 +9,6 @@ import com.mkhwang.gifticon.query.gifticon.presentation.dto.GifticonQuery;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-
 import java.util.List;
 
 @Component

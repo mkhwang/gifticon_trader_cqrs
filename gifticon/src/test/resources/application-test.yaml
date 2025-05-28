@@ -8,7 +8,7 @@ spring:
     password: gifticon1234
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
     properties:
       hibernate:
         format_sql: true
