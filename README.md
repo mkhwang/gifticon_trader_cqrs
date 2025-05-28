@@ -44,49 +44,37 @@ CQRS를 적용한 기프티콘 거래 서비스
 
 ### 1-7. 프로젝트 구조
 ```
-com.mkhwang.gifticon
-├── common
-├── command
-│   ├── gifticon
-│   │   ├── application
-│   │   │   ├── command
-│   │   │   ├── mapper
-│   │   │   ├── service
-│   │   │   └── uesecase
-│   │   ├── domain
-│   │   ├── infra
-│   │   └── presentation
-│   │       ├── dto
-│   │       └── mapper
-│   ├── review
-│   │   └── ...
-│   ├── tag
-│   │   └── ...
-├── query
-│   ├── gifticon
-│   │   ├── application
-│   │   │   ├── mapper
-│   │   │   └── search
-│   │   ├── domain
-│   │   ├── infra
-│   │   └── presentation
-│   │       ├── dto
-│   │       └── mapper
-│   ├── brand
-│   │   └── ...
-│   ├── category
-│   │   └── ...
-│   ├── review
-│   │   └── ...
-│   ├── user
-│   │   └── ...
-└── sync
-    └── handler
-        ├── cache
-        ├── document
-        ├── dto
-        └── search
-
+com.mkhwang.trader
+├── gifticon-common
+│   ├── src/main/java
+│   │   └── com.mkhwang.trader.common
+│   │       ├── domain (💡 Category, Tag 등 공통 Entity)
+│   │       ├── infra (💡 공통 Repository)
+│   │       └── dto / event / utils ...
+├── gifticon-command
+│   ├── src/main/java
+│   │   └── com.mkhwang.trader.command
+│   │       ├── gifticon
+│   │       │   ├── application
+│   │       │   │   ├── service, command, usecase
+│   │       │   ├── domain
+│   │       │   ├── infra (JpaRepository)
+│   │       │   └── presentation
+│   │       ├── review, tag ...
+├── gifticon-query
+│   ├── src/main/java
+│   │   └── com.mkhwang.trader.query
+│   │       ├── gifticon
+│   │       │   ├── application (search / mapper)
+│   │       │   ├── domain
+│   │       │   ├── infra (RedisRepository 등)
+│   │       │   └── presentation
+│   │       ├── brand, category, user ...
+├── gifticon-sync
+│   ├── src/main/java
+│   │   └── com.mkhwang.trader.sync
+│   │       ├── handler (cache, document, search)
+│   │       └── dto, listener ...
 ```
 
 ## 2. 시나리오
@@ -120,7 +108,3 @@ com.mkhwang.gifticon
 
 ## 4. 부하테스트 Report
 - [롹인하기](./k6/README.md)
-
-## 5. 향후 개선 방향
-- multi project로 분리하여 모듈화 
-  - 공통모듈, command, query, sync 를 각각 모듈로 분리 → 개별 배포 가능 → 확장성 및 유지보수성 향상

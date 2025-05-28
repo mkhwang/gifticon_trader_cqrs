@@ -1,0 +1,3 @@
+rootProject.name = 'gifticon-trader-cqrs'
+
+include 'gifticon-common', 'gifticon-command', 'gifticon-query', 'gifticon-sync'

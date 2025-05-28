@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: gifticon-command
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/gifticon
+    username: gifticon_user
+    password: gifticon1234
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+  flyway:
+    enabled: true
+    locations: classpath:migrations/
+    schemas: public
+    baseline-on-migrate: true
+    baseline-version: 1
+
+logging:
+  level:
+    org.hibernate.SQL: info
+    org.hibernate.orm.jdbc.bind: info
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+
+server:
+  port: 8081
