@@ -1,4 +1,4 @@
-package com.mkhwang.trader.common.config;
+package com.mkhwang.trader.query.config;
 
 import com.mkhwang.trader.query.gifticon.domain.UserRatingSummary;
 import org.springframework.beans.factory.annotation.Value;

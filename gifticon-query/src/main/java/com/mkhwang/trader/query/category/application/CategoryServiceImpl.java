@@ -4,7 +4,7 @@ import com.mkhwang.trader.common.brand.domain.QBrand;
 import com.mkhwang.trader.common.category.domain.Category;
 import com.mkhwang.trader.common.category.infra.CategoryRepository;
 import com.mkhwang.trader.common.config.GenericMapper;
-import com.mkhwang.trader.common.config.QuerydslUtil;
+import com.mkhwang.trader.query.config.QuerydslUtil;
 import com.mkhwang.trader.common.dto.PaginationDto;
 import com.mkhwang.trader.common.exception.ResourceNotFoundException;
 import com.mkhwang.trader.common.gifticon.domain.QGifticon;

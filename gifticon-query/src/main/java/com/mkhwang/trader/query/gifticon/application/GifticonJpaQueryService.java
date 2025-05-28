@@ -5,7 +5,7 @@ import com.mkhwang.trader.common.dto.PaginationDto;
 import com.mkhwang.trader.common.gifticon.domain.QGifticonImage;
 import com.mkhwang.trader.common.user.domain.QUser;
 import com.mkhwang.trader.common.category.domain.QCategory;
-import com.mkhwang.trader.common.config.QuerydslUtil;
+import com.mkhwang.trader.query.config.QuerydslUtil;
 import com.mkhwang.trader.common.exception.ResourceNotFoundException;
 import com.mkhwang.trader.common.gifticon.domain.Gifticon;
 import com.mkhwang.trader.common.gifticon.domain.QGifticon;

@@ -1,6 +1,6 @@
 package com.mkhwang.trader.query.review.application;
 
-import com.mkhwang.trader.common.config.QuerydslUtil;
+import com.mkhwang.trader.query.config.QuerydslUtil;
 import com.mkhwang.trader.common.dto.PaginationDto;
 import com.mkhwang.trader.common.review.domain.QReview;
 import com.mkhwang.trader.common.user.domain.QUser;

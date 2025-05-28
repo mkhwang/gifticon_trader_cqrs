@@ -1,4 +1,4 @@
-package com.mkhwang.trader.common.config;
+package com.mkhwang.trader.query.config;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;

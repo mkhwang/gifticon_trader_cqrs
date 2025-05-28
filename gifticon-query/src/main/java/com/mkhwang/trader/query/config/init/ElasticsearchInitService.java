@@ -1,4 +1,4 @@
-package com.mkhwang.trader.common.config.init;
+package com.mkhwang.trader.query.config.init;
 
 import com.mkhwang.trader.query.gifticon.domain.GifticonSearchDocument;
 import lombok.RequiredArgsConstructor;

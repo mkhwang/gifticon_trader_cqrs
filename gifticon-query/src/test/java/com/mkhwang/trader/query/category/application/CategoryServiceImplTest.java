@@ -3,7 +3,7 @@ package com.mkhwang.trader.query.category.application;
 import com.mkhwang.trader.common.category.domain.Category;
 import com.mkhwang.trader.common.category.infra.CategoryRepository;
 import com.mkhwang.trader.common.config.GenericMapper;
-import com.mkhwang.trader.common.config.QuerydslUtil;
+import com.mkhwang.trader.query.config.QuerydslUtil;
 import com.mkhwang.trader.common.dto.PaginationDto;
 import com.mkhwang.trader.query.category.presentation.dto.CategoryDto;
 import com.querydsl.jpa.impl.JPAQueryFactory;

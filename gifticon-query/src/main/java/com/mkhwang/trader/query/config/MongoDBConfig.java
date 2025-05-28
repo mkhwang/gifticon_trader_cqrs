@@ -1,4 +1,4 @@
-package com.mkhwang.trader.common.config;
+package com.mkhwang.trader.query.config;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;

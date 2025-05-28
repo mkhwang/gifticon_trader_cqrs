@@ -1,4 +1,4 @@
-package com.mkhwang.trader.common.config;
+package com.mkhwang.trader.query.config;
 
 import com.querydsl.jpa.JPQLTemplates;
 import com.querydsl.jpa.impl.JPAQueryFactory;

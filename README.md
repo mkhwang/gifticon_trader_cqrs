@@ -43,38 +43,59 @@ CQRS를 적용한 기프티콘 거래 서비스
 - MVP 성격의 프로젝트이므로 인증 및 보안은 구현 생략
 
 ### 1-7. 프로젝트 구조
+
+```mermaid
+graph TD
+
+  COMMON[gifticon-common]
+  COMMAND[gifticon-command]
+  QUERY[gifticon-query]
+  SYNC[gifticon-sync]
+
+  COMMON --> COMMAND
+  COMMON --> QUERY
+  QUERY --> SYNC
+```
+
 ```
 com.mkhwang.trader
 ├── gifticon-common
 │   ├── src/main/java
 │   │   └── com.mkhwang.trader.common
-│   │       ├── domain (💡 Category, Tag 등 공통 Entity)
-│   │       ├── infra (💡 공통 Repository)
-│   │       └── dto / event / utils ...
+│   │       ├── config (공통 설정)
+│   │       ├── dto (공통 DTO)
+│   │       ├── exception (공통 예외 처리)
+│   │       ├── gifticon
+│   │       │   ├── domain
+│   │       │   └── infra (공통 Repository)
+│   │       └── brand, category, review, tag ...
 ├── gifticon-command
 │   ├── src/main/java
 │   │   └── com.mkhwang.trader.command
 │   │       ├── gifticon
 │   │       │   ├── application
-│   │       │   │   ├── service, command, usecase
-│   │       │   ├── domain
-│   │       │   ├── infra (JpaRepository)
+│   │       │   │   └── usecase, service, command, mapper 
 │   │       │   └── presentation
-│   │       ├── review, tag ...
+│   │       │       └── dto, mapper
+│   │       └── review, tag ...
 ├── gifticon-query
 │   ├── src/main/java
 │   │   └── com.mkhwang.trader.query
+│   │       ├── config (쿼리 설정)
 │   │       ├── gifticon
 │   │       │   ├── application (search / mapper)
+│   │       │   │   └── dto, mapper, query, search, service
 │   │       │   ├── domain
 │   │       │   ├── infra (RedisRepository 등)
 │   │       │   └── presentation
-│   │       ├── brand, category, user ...
-├── gifticon-sync
-│   ├── src/main/java
-│   │   └── com.mkhwang.trader.sync
-│   │       ├── handler (cache, document, search)
-│   │       └── dto, listener ...
+│   │       │       └── controller, dto, mapper
+│   │       └── brand, category, user, review ...
+└── gifticon-sync
+    └── src/main/java
+        └── com.mkhwang.trader.sync
+            ├── config (kafka 설정)
+            └── application
+                └── handler (Kafka Consumer)
 ```
 
 ## 2. 시나리오
@@ -108,3 +129,10 @@ com.mkhwang.trader
 
 ## 4. 부하테스트 Report
 - [롹인하기](./k6/README.md)
+
+## 5. 추후 개선사항
+- 모든 모델을 CQRS로 분리하여 common에 공통 도메인과 repository를 삭제
+  - Why?
+    - 현재 일부 모델만 CQRS로 분리되어 있고, 다른 모델은 단순 CRUD로 구현되어 있음
+    - CQRS 철학인 완전한 read/write 분리를 위해 command에는 쓰기 전용 도메인, query에는 읽기 전용 도메인으로 분리 필요
+    - 이를통해 다른 모듈 간 결합도 상승 방지할 수 있고, 각 모듈의 책임을 명확히 할 수 있음
