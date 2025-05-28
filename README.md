@@ -128,7 +128,7 @@ gifticon-trader-cqrs
 - **Testing**: JUnit, Mockito, K6 (부하 테스트)
 
 ## 4. 부하테스트 Report
-- [롹인하기](./k6/README.md)
+- [확인하기](./k6/README.md)
 
 ## 5. 추후 개선사항
 - 모든 모델을 CQRS로 분리하여 common에 공통 도메인과 repository를 삭제
