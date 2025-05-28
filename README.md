@@ -58,7 +58,7 @@ graph TD
 ```
 
 ```
-com.mkhwang.trader
+gifticon-trader-cqrs
 ├── gifticon-common
 │   ├── src/main/java
 │   │   └── com.mkhwang.trader.common
