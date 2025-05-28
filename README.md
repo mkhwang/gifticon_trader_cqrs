@@ -121,6 +121,6 @@ com.mkhwang.gifticon
 ## 4. 부하테스트 Report
 - [롹인하기](./k6/README.md)
 
-## 5. 추가로 고려할만한 부분
+## 5. 향후 개선 방향
 - multi project로 분리하여 모듈화 
   - 공통모듈, command, query, sync 를 각각 모듈로 분리 → 개별 배포 가능 → 확장성 및 유지보수성 향상
