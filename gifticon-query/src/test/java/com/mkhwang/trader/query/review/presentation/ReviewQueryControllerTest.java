@@ -1,8 +1,7 @@
-package com.mkhwang.trader.query.presentation;
+package com.mkhwang.trader.query.review.presentation;
 
 import com.mkhwang.trader.common.dto.PaginationDto;
 import com.mkhwang.trader.query.review.application.ReviewQueryService;
-import com.mkhwang.trader.query.review.presentation.ReviewQueryController;
 import com.mkhwang.trader.query.review.presentation.dto.ReviewDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
