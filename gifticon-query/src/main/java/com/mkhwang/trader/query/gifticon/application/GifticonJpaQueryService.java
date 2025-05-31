@@ -1,21 +1,21 @@
 package com.mkhwang.trader.query.gifticon.application;
 
 import com.mkhwang.trader.common.brand.domain.QBrand;
-import com.mkhwang.trader.common.dto.PaginationDto;
-import com.mkhwang.trader.common.gifticon.domain.QGifticonImage;
-import com.mkhwang.trader.common.user.domain.QUser;
 import com.mkhwang.trader.common.category.domain.QCategory;
-import com.mkhwang.trader.query.config.QuerydslUtil;
+import com.mkhwang.trader.common.dto.PaginationDto;
 import com.mkhwang.trader.common.exception.ResourceNotFoundException;
 import com.mkhwang.trader.common.gifticon.domain.Gifticon;
 import com.mkhwang.trader.common.gifticon.domain.QGifticon;
+import com.mkhwang.trader.common.gifticon.domain.QGifticonImage;
 import com.mkhwang.trader.common.gifticon.domain.QGifticonPrice;
 import com.mkhwang.trader.common.gifticon.infra.GifticonRepository;
 import com.mkhwang.trader.common.tag.domain.QTag;
+import com.mkhwang.trader.common.user.domain.QUser;
+import com.mkhwang.trader.query.config.QuerydslUtil;
+import com.mkhwang.trader.query.gifticon.application.dto.*;
 import com.mkhwang.trader.query.gifticon.application.mapper.GifticonQueryResponseMapper;
 import com.mkhwang.trader.query.gifticon.application.query.GifticonQuery;
 import com.mkhwang.trader.query.gifticon.presentation.dto.GifticonListResponse;
-import com.mkhwang.trader.query.gifticon.application.dto.GifticonQueryDto;
 import com.mkhwang.trader.query.review.infra.ReviewQueryRepository;
 import com.mkhwang.trader.query.review.presentation.dto.ReviewDto;
 import com.querydsl.core.BooleanBuilder;
@@ -26,10 +26,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import com.mkhwang.trader.query.gifticon.application.dto.QGifticonQueryDto_GifticonSummary;
-import com.mkhwang.trader.query.gifticon.application.dto.QGifticonQueryDto_Brand;
-import com.mkhwang.trader.query.gifticon.application.dto.QGifticonQueryDto_Image;
-import com.mkhwang.trader.query.gifticon.application.dto.QGifticonQueryDto_Seller;
 
 import java.util.List;
 import java.util.Optional;

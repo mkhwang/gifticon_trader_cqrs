@@ -1,7 +1,7 @@
 package com.mkhwang.trader.query.gifticon.application;
 
-import com.mkhwang.trader.query.gifticon.domain.GifticonSearchDocument;
 import com.mkhwang.trader.query.gifticon.application.query.GifticonQuery;
+import com.mkhwang.trader.query.gifticon.domain.GifticonSearchDocument;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;

@@ -19,7 +19,6 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -67,7 +66,7 @@ class UserServiceImplTest {
     List<ReviewDto.Review> reviewList = mock(List.class);
     given(page.toPageable()).willReturn(pageable);
     given(userRepository.findById(id)).willReturn(Optional.of(user));
-    given(reviewRepository.findByUser(user , pageable)).willReturn(mockPage);
+    given(reviewRepository.findByUser(user, pageable)).willReturn(mockPage);
     given(mockPage.toList()).willReturn(reviewList);
 
     // when

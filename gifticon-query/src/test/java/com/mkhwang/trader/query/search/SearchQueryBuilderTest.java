@@ -62,7 +62,7 @@ class SearchQueryBuilderTest {
     assertThat(matchQueryOptional.get().match().field()).isEqualTo("status");
 
     Optional<Query> rangeQueryOptional = mustQueries.stream().filter(
-      Query::isRange
+            Query::isRange
     ).findFirst();
 
     assertThat(rangeQueryOptional).isPresent();

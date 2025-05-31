@@ -2,9 +2,9 @@ package com.mkhwang.trader.query.gifticon.application.mapper;
 
 import com.mkhwang.trader.common.gifticon.domain.Gifticon;
 import com.mkhwang.trader.common.tag.domain.Tag;
+import com.mkhwang.trader.query.gifticon.application.dto.GifticonQueryDto;
 import com.mkhwang.trader.query.gifticon.domain.GifticonDocument;
 import com.mkhwang.trader.query.gifticon.domain.GifticonSearchDocument;
-import com.mkhwang.trader.query.gifticon.application.dto.GifticonQueryDto;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;

@@ -21,9 +21,9 @@ class ReviewQueryRepositoryImplTest {
   void getUserReviewSummary_정상동작() {
     // given
     User user = User.of(
-        "testUser",
-        "testUser",
-        "https://example.com/profile.jpg");
+            "testUser",
+            "testUser",
+            "https://example.com/profile.jpg");
     em.persist(user);
 
 

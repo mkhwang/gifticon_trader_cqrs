@@ -2,9 +2,9 @@ package com.mkhwang.trader.query.gifticon.application.mapper;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mkhwang.trader.common.gifticon.domain.Gifticon;
+import com.mkhwang.trader.query.gifticon.application.dto.GifticonQueryDto;
 import com.mkhwang.trader.query.gifticon.domain.GifticonDocument;
 import com.mkhwang.trader.query.gifticon.domain.UserRatingSummary;
-import com.mkhwang.trader.query.gifticon.application.dto.GifticonQueryDto;
 import com.mkhwang.trader.query.review.presentation.dto.ReviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -5,12 +5,12 @@ import com.mkhwang.trader.common.dto.PaginationDto;
 import com.mkhwang.trader.query.gifticon.application.dto.GifticonQueryDto;
 import com.mkhwang.trader.query.gifticon.application.mapper.GifticonDocumentMapper;
 import com.mkhwang.trader.query.gifticon.application.mapper.GifticonQueryResponseMapper;
+import com.mkhwang.trader.query.gifticon.application.query.GifticonQuery;
 import com.mkhwang.trader.query.gifticon.application.search.SearchQueryBuilder;
 import com.mkhwang.trader.query.gifticon.domain.GifticonDocument;
 import com.mkhwang.trader.query.gifticon.domain.GifticonSearchDocument;
 import com.mkhwang.trader.query.gifticon.domain.UserRatingSummary;
 import com.mkhwang.trader.query.gifticon.infra.GifticonDocumentRepository;
-import com.mkhwang.trader.query.gifticon.application.query.GifticonQuery;
 import com.mkhwang.trader.query.gifticon.presentation.dto.GifticonListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
@@ -83,7 +83,7 @@ public class GifticonQueryService implements GifticonQueryHandler {
                     .perPage(pageable.getPageSize())
                     .totalItems((int) hits.getTotalHits())
                     .totalPages((int) (hits.getTotalHits() / pageable.getPageSize() + 1))
-            .build()
+                    .build()
     ).build();
   }
 }
