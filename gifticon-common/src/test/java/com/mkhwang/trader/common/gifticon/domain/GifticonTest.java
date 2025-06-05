@@ -1,7 +1,5 @@
 package com.mkhwang.trader.common.gifticon.domain;
 
-import com.mkhwang.trader.common.gifticon.domain.Gifticon;
-import com.mkhwang.trader.common.gifticon.domain.GifticonStatus;
 import com.mkhwang.trader.common.user.domain.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,8 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 class GifticonTest {

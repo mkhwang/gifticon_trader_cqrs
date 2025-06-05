@@ -1,1 +1,3 @@
-spring.application.name=gifticon-common
+spring:
+  application:
+    name: gifticon-common
