@@ -1,4 +1,4 @@
-package com.mkhwang.trader.query.config;
+package support;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;

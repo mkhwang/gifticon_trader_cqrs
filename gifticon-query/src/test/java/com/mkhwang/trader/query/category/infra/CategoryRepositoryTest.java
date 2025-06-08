@@ -2,7 +2,7 @@ package com.mkhwang.trader.query.category.infra;
 
 import com.mkhwang.trader.common.category.domain.Category;
 import com.mkhwang.trader.common.category.infra.CategoryRepository;
-import com.mkhwang.trader.query.config.TestJpaConfig;
+import support.TestJpaConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

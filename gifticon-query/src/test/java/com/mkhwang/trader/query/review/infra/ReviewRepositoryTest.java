@@ -11,7 +11,7 @@ import com.mkhwang.trader.common.review.domain.Review;
 import com.mkhwang.trader.common.review.infra.ReviewRepository;
 import com.mkhwang.trader.common.user.domain.User;
 import com.mkhwang.trader.common.user.infra.UserRepository;
-import com.mkhwang.trader.query.config.TestJpaConfig;
+import support.TestJpaConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
