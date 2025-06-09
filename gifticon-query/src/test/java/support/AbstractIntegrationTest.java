@@ -3,6 +3,7 @@ package support;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
+import org.testcontainers.containers.wait.strategy.Wait;
 import org.testcontainers.elasticsearch.ElasticsearchContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.utility.DockerImageName;
@@ -12,7 +13,8 @@ public class AbstractIntegrationTest {
   static GenericContainer<?> mongoDBContainer = new GenericContainer<>("mongo:8.0")
           .withEnv("MONGO_INITDB_ROOT_USERNAME", "admin")
           .withEnv("MONGO_INITDB_ROOT_PASSWORD", "admin123")
-          .withExposedPorts(27017);
+          .withExposedPorts(27017)
+          .waitingFor(Wait.forListeningPort());
 
   @Container
   static ElasticsearchContainer elasticsearchContainer = new ElasticsearchContainer(
@@ -23,7 +25,13 @@ public class AbstractIntegrationTest {
           .withCreateContainerCmdModifier(cmd -> {
             cmd.withEntrypoint("/bin/bash", "-c",
                     "bin/elasticsearch-plugin install analysis-nori || true && exec /usr/local/bin/docker-entrypoint.sh");
-          });
+          })
+          .waitingFor(Wait.forListeningPort());
+
+  @Container
+  static GenericContainer<?> redisContainer = new GenericContainer<>("redis:7.2")
+          .withExposedPorts(6379)
+          .waitingFor(Wait.forListeningPort());
 
   @DynamicPropertySource
   static void mongoProps(DynamicPropertyRegistry registry) {
@@ -38,5 +46,11 @@ public class AbstractIntegrationTest {
   static void elasticsearchProps(DynamicPropertyRegistry registry) {
     registry.add("spring.elasticsearch.host", elasticsearchContainer::getHost);
     registry.add("spring.elasticsearch.port", () -> elasticsearchContainer.getMappedPort(9200));
+  }
+
+  @DynamicPropertySource
+  static void redisProps(DynamicPropertyRegistry registry) {
+    registry.add("spring.data.redis.host", redisContainer::getHost);
+    registry.add("spring.data.redis.port", () -> redisContainer.getMappedPort(6379));
   }
 }
