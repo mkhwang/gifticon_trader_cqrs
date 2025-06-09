@@ -6,6 +6,9 @@ import com.mkhwang.trader.common.config.GenericMapper;
 import com.mkhwang.trader.common.dto.PaginationDto;
 import com.mkhwang.trader.query.category.presentation.dto.CategoryDto;
 import com.mkhwang.trader.query.config.QuerydslUtil;
+import com.querydsl.core.types.EntityPath;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,9 +19,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 class CategoryServiceImplTest {
@@ -66,19 +71,5 @@ class CategoryServiceImplTest {
     assertEquals(1, result.size());
     assertEquals(1, result.get(0).getChildren().size());
     assertEquals(2L, result.get(0).getChildren().get(0).getId());
-  }
-
-  @DisplayName("카테고리 기프티콘을 조회 한다.")
-  @Test
-  void getCategoryGifticons() {
-    // given
-    Long categoryId = 1L;
-    Boolean includeSubcategories = true;
-    PaginationDto.PaginationRequest paginationRequest = new PaginationDto.PaginationRequest(0, 10, null);
-
-    // when
-
-    // then
-
   }
 }
