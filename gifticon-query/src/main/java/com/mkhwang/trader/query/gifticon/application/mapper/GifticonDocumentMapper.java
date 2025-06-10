@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.time.ZoneId;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Component
 public class GifticonDocumentMapper {
@@ -33,7 +34,6 @@ public class GifticonDocumentMapper {
             .updatedAt(gifticon.getUpdatedAt().atZone(ZoneId.systemDefault()).toInstant())
             .slug(gifticon.getSlug())
             .build();
-
   }
 
   public GifticonDocument toDocument(Gifticon gifticon) {
@@ -91,8 +91,18 @@ public class GifticonDocumentMapper {
             .name(gifticonDocument.getName())
             .description(gifticonDocument.getDescription())
             .status(gifticonDocument.getStatus())
-            .basePrice(gifticonDocument.getPrice().get("basePrice") != null ? BigDecimal.valueOf(Double.parseDouble((String) gifticonDocument.getPrice().get("basePrice"))) : BigDecimal.ZERO)
-            .salePrice(gifticonDocument.getPrice().get("salePrice") != null ? BigDecimal.valueOf(Double.parseDouble((String) gifticonDocument.getPrice().get("salePrice"))) : BigDecimal.ZERO)
+            .basePrice(
+                    Optional.ofNullable(gifticonDocument.getPrice().get("basePrice"))
+                            .map(Object::toString)
+                            .map(BigDecimal::new)
+                            .orElse(BigDecimal.ZERO)
+            )
+            .salePrice(
+                    Optional.ofNullable(gifticonDocument.getPrice().get("salePrice"))
+                            .map(Object::toString)
+                            .map(BigDecimal::new)
+                            .orElse(BigDecimal.ZERO)
+            )
             .currency(gifticonDocument.getPrice().get("currency") != null ? (String) gifticonDocument.getPrice().get("currency") : "KRW")
             .primaryImage(
                     gifticonDocument.getImages().stream().findFirst().filter(image -> image.get("primary").equals(Boolean.TRUE))
