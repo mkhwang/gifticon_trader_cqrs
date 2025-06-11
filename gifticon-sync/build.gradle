@@ -14,5 +14,6 @@ dependencies {
 
     runtimeOnly 'org.postgresql:postgresql:42.7.3'
 
+    implementation project(':gifticon-common')
     implementation project(':gifticon-query')
 }
