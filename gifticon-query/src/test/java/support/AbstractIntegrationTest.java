@@ -12,12 +12,13 @@ import java.time.Duration;
 
 public class AbstractIntegrationTest {
   @Container
-  static GenericContainer<?> mongoDBContainer = new GenericContainer<>("mongo:8.0")
+  static GenericContainer<?> mongoDBContainer = new GenericContainer<>("mongo:6.0")
           .withEnv("MONGO_INITDB_ROOT_USERNAME", "admin")
           .withEnv("MONGO_INITDB_ROOT_PASSWORD", "admin123")
           .withExposedPorts(27017)
-          .waitingFor(Wait.forLogMessage(".*Waiting for connections.*", 1))
-          .waitingFor(Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)));
+          .waitingFor(Wait.forLogMessage(".*Waiting for connections.*\\n", 1))
+          .withStartupTimeout(Duration.ofSeconds(60));
+
 
   @Container
   static ElasticsearchContainer elasticsearchContainer = new ElasticsearchContainer(
@@ -29,19 +30,22 @@ public class AbstractIntegrationTest {
             cmd.withEntrypoint("/bin/bash", "-c",
                     "bin/elasticsearch-plugin install analysis-nori || true && exec /usr/local/bin/docker-entrypoint.sh");
           })
-          .waitingFor(Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)));
+          .waitingFor(Wait.forHealthcheck())
+          .waitingFor(Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(60)));
 
   @Container
   static GenericContainer<?> redisContainer = new GenericContainer<>("redis:7.2")
           .withExposedPorts(6379)
+          .waitingFor(Wait.forHealthcheck())
           .waitingFor(Wait.forLogMessage(".*Ready to accept connections.*", 1))
-          .waitingFor(Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(30)));
+          .waitingFor(Wait.forListeningPort().withStartupTimeout(Duration.ofSeconds(60)));
 
   @DynamicPropertySource
   static void mongoProps(DynamicPropertyRegistry registry) {
     if (!mongoDBContainer.isRunning()) {
       mongoDBContainer.start();
     }
+//    registry.add("spring.data.mongodb.uri", () -> String.format("mongodb://%s:%s@%s:%d", "admin", "admin123", mongoDBContainer.getHost(), mongoDBContainer.getMappedPort(27017)));
 
     registry.add("spring.mongodb.host", mongoDBContainer::getHost);
     registry.add("spring.mongodb.port", () -> mongoDBContainer.getMappedPort(27017));
