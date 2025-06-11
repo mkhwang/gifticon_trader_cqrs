@@ -35,6 +35,10 @@ public class AbstractIntegrationTest {
 
   @DynamicPropertySource
   static void mongoProps(DynamicPropertyRegistry registry) {
+    if (!mongoDBContainer.isRunning()) {
+      mongoDBContainer.start();
+    }
+
     registry.add("spring.mongodb.host", mongoDBContainer::getHost);
     registry.add("spring.mongodb.port", () -> mongoDBContainer.getMappedPort(27017));
     registry.add("spring.mongodb.username", () -> "admin");
@@ -44,12 +48,20 @@ public class AbstractIntegrationTest {
 
   @DynamicPropertySource
   static void elasticsearchProps(DynamicPropertyRegistry registry) {
+    if (!elasticsearchContainer.isRunning()) {
+      elasticsearchContainer.start();
+    }
+
     registry.add("spring.elasticsearch.host", elasticsearchContainer::getHost);
     registry.add("spring.elasticsearch.port", () -> elasticsearchContainer.getMappedPort(9200));
   }
 
   @DynamicPropertySource
   static void redisProps(DynamicPropertyRegistry registry) {
+    if (!redisContainer.isRunning()) {
+      redisContainer.start();
+    }
+
     registry.add("spring.data.redis.host", redisContainer::getHost);
     registry.add("spring.data.redis.port", () -> redisContainer.getMappedPort(6379));
   }
