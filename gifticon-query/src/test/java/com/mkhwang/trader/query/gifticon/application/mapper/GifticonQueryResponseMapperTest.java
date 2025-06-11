@@ -33,7 +33,6 @@ class GifticonQueryResponseMapperTest {
   void toGifticon() throws NoSuchFieldException, IllegalAccessException {
     // given
     Gifticon gifticon = new Gifticon();
-    gifticon = new Gifticon();
     gifticon.setId(1L);
     gifticon.setName("test");
     gifticon.setDescription("description");
