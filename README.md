@@ -3,6 +3,10 @@ CQRS를 적용한 기프티콘 거래 서비스
 
 ----
 
+[![codecov](https://codecov.io/gh/mkhwang/gifticon_trader_cqrs/graph/badge.svg?token=6F4M5UV6BX)](https://codecov.io/gh/mkhwang/gifticon_trader_cqrs)
+
+----
+
 ## 1. 개요
 - 기프티콘 거래 서비스는 기프티콘을 사고 파는 플랫폼을 간단하게 구현
 - CQRS와 Kafka, CDC를 활용하여 기프티콘 이벤트를 실시간으로 처리
