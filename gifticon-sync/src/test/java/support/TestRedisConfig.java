@@ -1,4 +1,4 @@
-package com.mkhwang.trader.sync.config;
+package support;
 
 import com.mkhwang.trader.query.gifticon.domain.UserRatingSummary;
 import org.springframework.beans.factory.annotation.Value;

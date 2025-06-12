@@ -69,6 +69,8 @@ gifticon-trader-cqrs
 │   │       │   ├── domain
 │   │       │   └── infra (공통 Repository)
 │   │       └── brand, category, review, tag ...
+│   └── src/test/java
+│
 ├── gifticon-command
 │   ├── src/main/java
 │   │   └── com.mkhwang.trader.command
@@ -78,6 +80,8 @@ gifticon-trader-cqrs
 │   │       │   └── presentation
 │   │       │       └── dto, mapper
 │   │       └── review, tag ...
+│   └── src/test/java
+│
 ├── gifticon-query
 │   ├── src/main/java
 │   │   └── com.mkhwang.trader.query
@@ -90,12 +94,16 @@ gifticon-trader-cqrs
 │   │       │   └── presentation
 │   │       │       └── controller, dto, mapper
 │   │       └── brand, category, user, review ...
+│   └── src/test/java
+│
 └── gifticon-sync
-    └── src/main/java
-        └── com.mkhwang.trader.sync
-            ├── config (kafka 설정)
-            └── application
-                └── handler (Kafka Consumer)
+    │── src/main/java
+    │   └── com.mkhwang.trader.sync
+    │       ├── config (kafka 설정)
+    │       └── application
+    │           └── handler (Kafka Consumer)
+    └── src/test/java
+
 ```
 
 ## 2. 시나리오

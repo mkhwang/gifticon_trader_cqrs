@@ -9,13 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import support.AbstractIntegrationTest;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 
 @ActiveProfiles("test")
 @SpringBootTest
-class ReviewCacheModelSyncerTest {
+@Testcontainers
+class ReviewCacheModelSyncerTest extends AbstractIntegrationTest {
   @MockitoBean
   ReviewCacheEventHandler reviewCacheEventHandler;
 

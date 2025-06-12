@@ -13,6 +13,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.testcontainers.junit.jupiter.Testcontainers;
+import support.AbstractIntegrationTest;
 
 import java.util.Map;
 
@@ -25,7 +27,8 @@ import static org.mockito.Mockito.verify;
 
 @ActiveProfiles("test")
 @SpringBootTest
-class ReviewCacheEventHandlerTest {
+@Testcontainers
+class ReviewCacheEventHandlerTest extends AbstractIntegrationTest {
   @Autowired
   ObjectMapper objectMapper;
   @MockitoBean
