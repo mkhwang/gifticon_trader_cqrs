@@ -80,9 +80,9 @@ public class GifticonTagDocumentModelEventHandler extends GifticonDocumentModelB
                         "slug", tag.getSlug()
                 );
                 tags.add(tagInfo);
+                gifticonDocumentRepository.save(document);
               }
       );
-      gifticonDocumentRepository.save(document);
     }
 
     log.info("Updated gifticon tag mapping for gifticon ID: {}, tag ID: {}", gifticonId, tagId);

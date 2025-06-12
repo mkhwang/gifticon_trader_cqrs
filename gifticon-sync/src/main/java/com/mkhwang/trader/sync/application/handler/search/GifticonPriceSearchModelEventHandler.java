@@ -41,11 +41,11 @@ public class GifticonPriceSearchModelEventHandler extends GifticonSearchModelBas
       data = event.getAfterData();
     }
 
-    if (data == null || !data.containsKey("gifticoin_id")) {
+    if (data == null || !data.containsKey("gifticon_id")) {
       return;
     }
 
-    gifticonId = getLongValue(data, "gifticoin_id");
+    gifticonId = getLongValue(data, "gifticon_id");
 
     // 삭제 이벤트 처리
     if (event.isDelete()) {
