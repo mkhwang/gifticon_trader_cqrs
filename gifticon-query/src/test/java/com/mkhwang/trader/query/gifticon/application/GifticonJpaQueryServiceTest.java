@@ -53,23 +53,27 @@ class GifticonJpaQueryServiceTest extends AbstractIntegrationTest {
 
 
   Gifticon gifticon1;
+  Category category1;
+  Category category2;
+  User seller;
+  Brand brand;
 
   @BeforeEach
   void setUp() {
-    Category category1 = Category.builder().level(1).name("name1").slug("slug1").build();
-    Category category2 = Category.builder().level(1).name("name2").slug("slug2").build();
+    category1 = Category.builder().level(1).name("name1").slug("slug1").build();
+    category2 = Category.builder().level(1).name("name2").slug("slug2").build();
     categoryRepository.saveAll(List.of(category1, category2));
     LocalDate dueDate = LocalDate.now().plusDays(10);
-    User seller = User.of("user1", "nickname1", "http://image.profile.com");
+    seller = User.of("user1", "nickname1", "http://image.profile.com");
     User buyer = User.of("user2", "nickname2", "http://image.profile.com");
     userRepository.save(seller);
     userRepository.save(buyer);
-    Brand brand = Brand.builder().name("brand").slug("slug").description("des").build();
+    brand = Brand.builder().name("brand").slug("slug").description("des").build();
     brandRepository.save(brand);
 
     GifticonPrice price1 = GifticonPrice.builder().basePrice(BigDecimal.ZERO).salePrice(BigDecimal.ZERO).build();
-    GifticonPrice price2 = GifticonPrice.builder().basePrice(BigDecimal.ZERO).salePrice(BigDecimal.ZERO).build();
-    GifticonPrice price3 = GifticonPrice.builder().basePrice(BigDecimal.ZERO).salePrice(BigDecimal.ZERO).build();
+    GifticonPrice price2 = GifticonPrice.builder().basePrice(BigDecimal.valueOf(10000L)).salePrice(BigDecimal.valueOf(1000L)).build();
+    GifticonPrice price3 = GifticonPrice.builder().basePrice(BigDecimal.valueOf(30000L)).salePrice(BigDecimal.valueOf(3000L)).build();
 
     gifticon1 = Gifticon.builder()
             .name("name")
@@ -177,6 +181,168 @@ class GifticonJpaQueryServiceTest extends AbstractIntegrationTest {
     // given
     GifticonQuery.ListGifticons query = GifticonQuery.ListGifticons.builder()
             .search("name")
+            .pagination(
+                    PaginationDto.PaginationRequest.builder()
+                            .page(1)
+                            .size(10)
+                            .sort("createdAt:desc")
+                            .build()
+            )
+            .build();
+
+    // when
+    GifticonListResponse gifticons = gifticonJpaQueryService.getGifticons(query);
+
+    // then
+    assertNotNull(gifticons);
+    assertNotNull(gifticons.getItems());
+    assertNotNull(gifticons.getPagination());
+    assertEquals(3, gifticons.getItems().size());
+    assertEquals(3, gifticons.getPagination().getTotalItems());
+  }
+
+  @DisplayName("기프티콘이 상태 검색 테스트")
+  @Test
+  void getGifticons_if_gifticoin_status_exists_return_items() {
+    // given
+    GifticonQuery.ListGifticons query = GifticonQuery.ListGifticons.builder()
+            .status(GifticonStatus.SOLD_OUT.toString())
+            .pagination(
+                    PaginationDto.PaginationRequest.builder()
+                            .page(1)
+                            .size(10)
+                            .sort("createdAt:desc")
+                            .build()
+            )
+            .build();
+
+    // when
+    GifticonListResponse gifticons = gifticonJpaQueryService.getGifticons(query);
+
+    // then
+    assertNotNull(gifticons);
+    assertNotNull(gifticons.getItems());
+    assertNotNull(gifticons.getPagination());
+    assertEquals(1, gifticons.getItems().size());
+    assertEquals(1, gifticons.getPagination().getTotalItems());
+  }
+
+  @DisplayName("기프티콘이 가격 검색 테스트")
+  @Test
+  void getGifticons_if_gifticoin_price_search_return_items() {
+    // given
+    GifticonQuery.ListGifticons query = GifticonQuery.ListGifticons.builder()
+            .minPrice(BigDecimal.valueOf(500L))
+            .maxPrice(BigDecimal.valueOf(2500L))
+            .pagination(
+                    PaginationDto.PaginationRequest.builder()
+                            .page(1)
+                            .size(10)
+                            .sort("createdAt:desc")
+                            .build()
+            )
+            .build();
+
+    // when
+    GifticonListResponse gifticons = gifticonJpaQueryService.getGifticons(query);
+
+    // then
+    assertNotNull(gifticons);
+    assertNotNull(gifticons.getItems());
+    assertNotNull(gifticons.getPagination());
+    assertEquals(1, gifticons.getItems().size());
+    assertEquals(1, gifticons.getPagination().getTotalItems());
+  }
+
+  @DisplayName("기프티콘이 카테고리 검색 테스트")
+  @Test
+  void getGifticons_if_gifticoin_category_search_return_items() {
+    // given
+    GifticonQuery.ListGifticons query = GifticonQuery.ListGifticons.builder()
+            .category(List.of(category2.getId()))
+            .pagination(
+                    PaginationDto.PaginationRequest.builder()
+                            .page(1)
+                            .size(10)
+                            .sort("createdAt:desc")
+                            .build()
+            )
+            .build();
+
+    // when
+    GifticonListResponse gifticons = gifticonJpaQueryService.getGifticons(query);
+
+    // then
+    assertNotNull(gifticons);
+    assertNotNull(gifticons.getItems());
+    assertNotNull(gifticons.getPagination());
+    assertEquals(1, gifticons.getItems().size());
+    assertEquals(1, gifticons.getPagination().getTotalItems());
+  }
+
+
+  @DisplayName("기프티콘이 판매자 검색 테스트")
+  @Test
+  void getGifticons_if_gifticoin_seller_search_return_items() {
+    // given
+    GifticonQuery.ListGifticons query = GifticonQuery.ListGifticons.builder()
+            .seller(this.seller.getId())
+            .pagination(
+                    PaginationDto.PaginationRequest.builder()
+                            .page(1)
+                            .size(10)
+                            .sort("createdAt:desc")
+                            .build()
+            )
+            .build();
+
+    // when
+    GifticonListResponse gifticons = gifticonJpaQueryService.getGifticons(query);
+
+    // then
+    assertNotNull(gifticons);
+    assertNotNull(gifticons.getItems());
+    assertNotNull(gifticons.getPagination());
+    assertEquals(3, gifticons.getItems().size());
+    assertEquals(3, gifticons.getPagination().getTotalItems());
+  }
+
+
+  @DisplayName("기프티콘이 브랜드 검색 테스트")
+  @Test
+  void getGifticons_if_gifticoin_brand_search_return_items() {
+    // given
+    GifticonQuery.ListGifticons query = GifticonQuery.ListGifticons.builder()
+            .brand(this.brand.getId())
+            .pagination(
+                    PaginationDto.PaginationRequest.builder()
+                            .page(1)
+                            .size(10)
+                            .sort("createdAt:desc")
+                            .build()
+            )
+            .build();
+
+    // when
+    GifticonListResponse gifticons = gifticonJpaQueryService.getGifticons(query);
+
+    // then
+    assertNotNull(gifticons);
+    assertNotNull(gifticons.getItems());
+    assertNotNull(gifticons.getPagination());
+    assertEquals(3, gifticons.getItems().size());
+    assertEquals(3, gifticons.getPagination().getTotalItems());
+  }
+
+
+  @DisplayName("기프티콘이 등록일 검색 테스트")
+  @Test
+  void getGifticons_if_gifticoin_created_at_search_return_items() {
+    // given
+    LocalDate today = LocalDate.now();
+    GifticonQuery.ListGifticons query = GifticonQuery.ListGifticons.builder()
+            .createdFrom(today.minusDays(1))
+            .createdTo(today.plusDays(1))
             .pagination(
                     PaginationDto.PaginationRequest.builder()
                             .page(1)
