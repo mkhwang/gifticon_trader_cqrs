@@ -71,18 +71,18 @@ class GifticonCommandServiceTest {
     Gifticon savedGifticon = new Gifticon();
     GifticonDto.Gifticon dto = new GifticonDto.Gifticon();
 
-    // When
-    when(userRepository.findById(1L)).thenReturn(Optional.of(mockSeller));
-    when(brandRepository.findById(2L)).thenReturn(Optional.of(mockBrand));
-    when(categoryRepository.findById(3L)).thenReturn(Optional.of(mockCategory));
-    when(tagRepository.findAllById(command.getTagIds())).thenReturn(mockTags);
-    when(gifticonRepository.save(any(Gifticon.class))).thenReturn(savedGifticon);
-    when(gifticonCommandResponseMapper.toDto(savedGifticon)).thenReturn(dto);
+    given(userRepository.findById(1L)).willReturn(Optional.of(mockSeller));
+    given(brandRepository.findById(2L)).willReturn(Optional.of(mockBrand));
+    given(categoryRepository.findById(3L)).willReturn(Optional.of(mockCategory));
+    given(tagRepository.findAllById(command.getTagIds())).willReturn(mockTags);
+    given(gifticonRepository.save(any(Gifticon.class))).willReturn(savedGifticon);
+    given(gifticonCommandResponseMapper.toDto(savedGifticon)).willReturn(dto);
 
-    // Then
+    // When
     GifticonDto.Gifticon result = gifticonCommandService.createGifticon(command);
     assertEquals(dto, result);
 
+    // Then
     verify(userRepository).findById(1L);
     verify(brandRepository).findById(2L);
     verify(categoryRepository).findById(3L);

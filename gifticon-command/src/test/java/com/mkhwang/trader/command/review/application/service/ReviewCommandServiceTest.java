@@ -65,7 +65,7 @@ class ReviewCommandServiceTest {
       mocked.when(() -> Review.of(gifticon, buyer, command.getRating(), command.getTitle(), command.getContent()))
               .thenReturn(review);
 
-      when(reviewRepository.save(review)).thenReturn(review);
+      given(reviewRepository.save(review)).willReturn(review);
 
       reviewCommandService.createReview(command);
 

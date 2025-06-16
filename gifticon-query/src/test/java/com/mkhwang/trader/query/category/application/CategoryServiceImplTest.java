@@ -3,12 +3,8 @@ package com.mkhwang.trader.query.category.application;
 import com.mkhwang.trader.common.category.domain.Category;
 import com.mkhwang.trader.common.category.infra.CategoryRepository;
 import com.mkhwang.trader.common.config.GenericMapper;
-import com.mkhwang.trader.common.dto.PaginationDto;
 import com.mkhwang.trader.query.category.presentation.dto.CategoryDto;
 import com.mkhwang.trader.query.config.QuerydslUtil;
-import com.querydsl.core.types.EntityPath;
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,10 +15,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -60,9 +54,9 @@ class CategoryServiceImplTest {
     childDto.setId(2L);
     childDto.setLevel(2);
 
-    when(categoryRepository.findAll()).thenReturn(List.of(parent, child));
-    when(genericMapper.toDto(parent, CategoryDto.Category.class)).thenReturn(parentDto);
-    when(genericMapper.toDto(child, CategoryDto.Category.class)).thenReturn(childDto);
+    given(categoryRepository.findAll()).willReturn(List.of(parent, child));
+    given(genericMapper.toDto(parent, CategoryDto.Category.class)).willReturn(parentDto);
+    given(genericMapper.toDto(child, CategoryDto.Category.class)).willReturn(childDto);
 
     // when
     List<CategoryDto.Category> result = categoryService.getAllCategories(null);
